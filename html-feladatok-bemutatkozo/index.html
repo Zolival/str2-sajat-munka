@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/maine.css">
+</head>
+
+<body>
+    <header class="header">
+        <h1 class="headerText"> Szabó Zoltán első beutatkozó oldala </h1>
+
+        <nav id="nav">
+            <div id="menuToggle">
+                <!--
+              A fake / hidden checkbox is used as click reciever,
+              so you can use the :checked selector on it.
+              -->
+                <input type="checkbox" />
+
+                <!--
+              Some spans to act as a hamburger.
+              
+              They are acting like a real hamburger,
+              not that McDonalds stuff.
+              -->
+                <span></span>
+                <span></span>
+                <span></span>
+
+                <!--
+              Too bad the menu has to be inside of the button
+              but hey, it's pure CSS magic.
+              -->
+                <ul id="menu">
+                    <a href="#">
+                        <li>Home</li>
+                    </a>
+                    <a href="#">
+                        <li>Works</li>
+                    </a>
+                    <a href="#">
+                        <li>Galery</li>
+                    </a>
+                    <a href="#">
+                        <li>about</li>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <h2>Üdvözöllek, kedves Látogatóm!</h2>
+        <h4>Itt megtudhatod, hogy mennyire alapszinten van a html és css ismeretem.</h4>
+        <p>Kalandos út vezett idáig, hogy most itt tanuljam tőletek a programozás frontend részét.</p>
+
+    </main>
+    <section class="section">
+        <p>Kezdetben drágakövekkel foglalkoztam.</p>
+        <ul>
+            <li>
+                Tizenéves koromban megtanultam a szines kövek csiszolását.
+            </li>
+            <li>
+                Majd drágakőszakértő is lettem.
+            </li>
+            <li>
+                Később Drágakővésnöknek tanultam.
+            </li>
+            <li>
+                Majd jött egy időszak, amikor gyémántcsiszolást kezdtem el tanulni. Ez utóbbiban soha sem lettem mester,
+                bár azon kevesek közé tartozom, akik meg tudnak csiszolni egy gyémánt briliánst az elejétől a végéig.
+            </li>
+        </ul>
+        <p>Mindez azért alakulhatott így, mert egy drágaköves családba születtem.</p>
+        <h4>
+            Jól hangzik mi?
+        </h4>
+        <p>Pedig a családon belüli közös munka nem biztos, hogy megvalósítható! Sok múlik a generációs különbségek
+            áthidalásásán.</p>
+        <p> Ugyanúgy kérdés marad, hogy:</p>
+        <h4>
+            Együtt tudnak-e dolgozni a családtagok?
+        </h4>
+        <p>
+            Több évtized próbálkozás után be kellett lássam, ez nekünk nem működik.
+        </p>
+        <p>
+            Fontos megérteni, hogy az Öcsém, aki ötvosrestauátor lett, ugyanide jutott. Neki annyiban szerencsésebb a helyzete, hogy az apánk semmennyire sem ért az ötvosséghez, azért kevésbé tud beleszólni a napi tevékenységbe. De végül ők sem tudtak korrekt megegyezést kötni.
+        </p>
+    </section>
+    <footer class="footer">
+        <p>
+            Nem értem  miért nem akar a gomb jobb oldalon megjelenni. Segítség!!!
+        </p> 
+        <button onclick="topFunction()" id="goTopBtn" title="Go to top">Top</button>
+    </footer>
+    <script src="/js/maine.js"></script>
+</body>
+
+</html>
