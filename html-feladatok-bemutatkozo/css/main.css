@@ -301,7 +301,8 @@
      width: 100%;
      height: auto;
      background-color: cornsilk;
-     margin: 15px 15px;
+     padding: 10px;
+     margin: 15px 0 15px 0;
      flex-basis: | auto;
  }
 
@@ -309,7 +310,7 @@
      width: 30%;
      max-width: 100%;
      max-height: 100%;
-     box-shadow: lightgray;
+     box-shadow: 3px 4px rgba(132, 134, 139, 0.521);
      margin: auto;
 
  }
@@ -325,8 +326,14 @@
      display: block;
  }
 
- .message{
+ .messageDiv {
      display: block;
+     /* Miért nem működik a megjelenítésben? */
+ }
+
+ .messageArea{
+     display: block;
+     /* Miért nem működik a megjelenítésben? */
  }
 
 
@@ -354,6 +361,18 @@
 
      .projectDiv h4 {
          margin: 5px 0 5px 0;
+     }
+
+     .gallerySection{
+        display: block;
+     
+     }
+     .gallerySection img{
+         display: block;
+         width: 90%;
+         max-width: 100%;
+         max-height: 100%;
+         margin: 20px;
      }
 
  }
