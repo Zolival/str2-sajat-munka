@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+    <header class="header">
+        <h1 class="headerText"> <a href="/home.html">Szabó Zoltán első beutatkozó oldala</a> </h1>
+
+        <nav id="nav">
+            <div id="menuToggle">
+                <!--
+              A fake / hidden checkbox is used as click reciever,
+              so you can use the :checked selector on it.
+              -->
+                <input type="checkbox" />
+
+                <!--
+              Some spans to act as a hamburger.
+              
+              They are acting like a real hamburger,
+              not that McDonalds stuff.
+              -->
+                <span></span>
+                <span></span>
+                <span></span>
+
+                <!--
+              Too bad the menu has to be inside of the button
+              but hey, it's pure CSS magic.
+              -->
+                <ul id="menu">
+                    <a href="/home.html">
+                        <li>Home</li>
+                    </a>
+                    <a href="/works.html">
+                        <li>Works</li>
+                    </a>
+                    <a href="gallery.html">
+                        <li>Galery</li>
+                    </a>
+                    <a href="about.html">
+                        <li>About</li>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <h2>Üdvözöllek, kedves Látogatóm!</h2>
+        <h4>Itt megtudhatod, hogy mennyire alapszinten van a html és css ismeretem.</h4>
+        <p>Kalandos út vezett idáig, hogy most itt tanuljam tőletek a programozás frontend részét.</p>
+
+        <div class="homeMineDiv">
+            <div class="photos">
+                <img src="https://iso.500px.com/wp-content/uploads/2016/03/stock-photo-142984111.jpg"
+                    alt="Szarvas a naplementében">
+                </div>
+                <div class="photos">
+                    <img src="https://mymodernmet.com/wp/wp-content/uploads/2019/07/will-burrard-lucas-beetlecam-23.jpg"
+                        alt="Egy pár duc">
+                </div>
+        </div>
+
+    </main>
+    <section class="section">
+        <div class="photoDiv">
+            <p>ügyes</p>
+        </div>
+        <div class="photoDiv">
+            <p>okos</p>
+        </div>
+        <div class="photoDiv">
+            <p> És nem beképzelt :D </p>
+        </div>
+    </section>
+    <footer class="footer">
+        <p>
+            Nem értem miért nem akar a gomb jobb oldalon megjelenni. Segítség!!!
+        </p>
+        <p>sikeresen elvettem a fixed funkcióját, de gyorsan vissza lehet tenni.</p>
+        <button onclick="topFunction()" id="goTopBtn" title="Go to top">Top</button>
+    </footer>
+    <script src="/js/main.js"></script>
+</body>
+
+</html>

@@ -23,16 +23,6 @@
  }
 
  /* menu element src = https://codepen.io/erikterwan/pen/grOZxx?html-preprocessor=none */
- /*
- * Made by Erik Terwan
- * 24th of November 2015
- * MIT license
- *
- *
- * If you are thinking of using this in
- * production code, beware of the browser
- * prefixes.
- */
 
  body {
      margin: 0;
@@ -213,10 +203,14 @@
      background: rgba(82, 93, 141, 0.795);
      color: #333333;
 
-     cursor: pointer; /* Add a mouse pointer on hover */
-     padding: 15px; /* Some padding */
-     border-radius: 10px; /* Rounded corners */
-     font-size: 18px; /* Increase font size */
+     cursor: pointer;
+     /* Add a mouse pointer on hover */
+     padding: 15px;
+     /* Some padding */
+     border-radius: 10px;
+     /* Rounded corners */
+     font-size: 18px;
+     /* Increase font size */
  }
 
  #goTopBtn:hover {
@@ -225,21 +219,141 @@
      /* Add a dark-grey background on hover */
  }
 
- h1{
+ h1 {
      padding: 25px 5px 15px 40px;
  }
- h2{
-    padding: 0 0 0 5px;
+
+ h2 {
+     padding: 0 0 0 25px;
  }
- h3{
-    padding: 0 5px 0 25px;
+
+ h3 {
+     padding: 0 5px 0 25px;
  }
- h4{
-    padding: 5px 0 0 25px;
+
+ h4 {
+     padding: 5px 0 0 25px;
  }
+
  p {
      padding: 0 0 0 25px;
  }
- ul{
-        padding: 0 0 0 55px;
+
+ ul {
+     padding: 0 0 0 55px;
+ }
+ ol {
+    padding: 0 0 0 55px;
+}
+ 
+ .main .homeMineDiv{
+     display: flex;
+     align-items: center;
+ }
+
+ .main .homeMineDiv .photos {
+     display: inline-flex;
+     width: 45%;
+     height: auto;
+     background-color: rgb(187, 185, 179);
+     padding: 10px;
+     margin: 25px 10px 25px 10px;
+ }
+
+ .main img {
+     max-width: 100%;
+     max-height: 100%;
+ }
+
+ .photoDiv {
+     display: inline-flex;
+     width: 30%;
+     height: auto;
+     background-color: cornsilk;
+     margin: 10px;
+ }
+
+ .photoDiv img {
+     max-width: 100%;
+     max-height: 100%;
+ }
+
+ .projectDiv {
+     display: inline-flex;
+     width: 90%;
+     height: auto;
+     background-color: cornsilk;
+     padding: 10px;
+     margin: 15px;
+ }
+
+ .projectDiv img {
+     max-width: 100%;
+     max-height: 100%;
+ }
+
+
+ .gallerySection {
+     display: flex;
+     flex-wrap: wrap;
+     align-items: center;
+     order: 3;
+     width: 100%;
+     height: auto;
+     background-color: cornsilk;
+     margin: 15px 15px;
+     flex-basis: | auto;
+ }
+
+ .gallerySection img {
+     width: 30%;
+     max-width: 100%;
+     max-height: 100%;
+     box-shadow: lightgray;
+     margin: auto;
+
+ }
+
+ .aboutProfil{
+     display: inline-flex;
+ }
+
+ .myProfilPhoto{
+     margin: 25px;
+ }
+ .myProfilText{
+     display: block;
+ }
+
+ .message{
+     display: block;
+ }
+
+
+ @media only screen and (max-width: 800px) {
+     .section .photoDiv {
+         display: block;
+         margin: 10px;
+     }
+
+     .main div .photos {
+         display: block;
+         background-color: rgb(187, 185, 179);
+         padding: 10px;
+         margin-bottom: 20px;
+     }
+
+     .projectDiv {
+         display: block;
+         width: 90%;
+         height: auto;
+         background-color: cornsilk;
+         margin: 15px;
+
+     }
+
+     .projectDiv h4 {
+         margin: 5px 0 5px 0;
+     }
+
  }

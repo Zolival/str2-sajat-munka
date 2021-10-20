@@ -11,7 +11,7 @@
 
 <body>
     <header class="header">
-        <h1 class="headerText"> Szabó Zoltán első beutatkozó oldala </h1>
+        <h1 class="headerText"> <a href="/home.html">About</a> </h1>
 
         <nav id="nav">
             <div id="menuToggle">
@@ -36,17 +36,17 @@
               but hey, it's pure CSS magic.
               -->
                 <ul id="menu">
-                    <a href="#">
+                    <a href="/home.html">
                         <li>Home</li>
                     </a>
-                    <a href="#">
+                    <a href="/works.html">
                         <li>Works</li>
                     </a>
-                    <a href="#">
+                    <a href="gallery.html">
                         <li>Galery</li>
                     </a>
-                    <a href="#">
-                        <li>about</li>
+                    <a href="about.html">
+                        <li>About</li>
                     </a>
                 </ul>
             </div>
@@ -56,12 +56,22 @@
     <main class="main">
         <h2>Üdvözöllek, kedves Látogatóm!</h2>
         <h4>Itt megtudhatod, hogy mennyire alapszinten van a html és css ismeretem.</h4>
-        <p>Kalandos út vezett idáig, hogy most itt tanuljam tőletek a programozás frontend részét.</p>
+        <div class="aboutProfil">
 
+            <div class="myProfilPhoto">
+                <img src="https://lh3.googleusercontent.com/a-/AOh14Gj1y_n6vohWyUopAxUusyu6ImzbpTkDXU6QauCvJA=s288-p-no"
+                    alt="Szabó Zoltán profilképe">
+            </div>
+            <div class="myProfilText">
+                <h4>Szabó Zoltán vagyok.</h4>
+                <p>Kalandos út vezett idáig, hogy most itt tanuljam tőletek a programozás frontend részét.</p>
+            </div>
+        </div>
     </main>
     <section class="section">
+
         <p>Kezdetben drágakövekkel foglalkoztam.</p>
-        <ul>
+        <ol>
             <li>
                 Tizenéves koromban megtanultam a szines kövek csiszolását.
             </li>
@@ -69,13 +79,13 @@
                 Majd drágakőszakértő is lettem.
             </li>
             <li>
-                Később Drágakővésnöknek tanultam.
+                Később drágakővésnöknek tanultam.
             </li>
             <li>
                 Majd jött egy időszak, amikor gyémántcsiszolást kezdtem el tanulni. Ez utóbbiban soha sem lettem mester,
                 bár azon kevesek közé tartozom, akik meg tudnak csiszolni egy gyémánt briliánst az elejétől a végéig.
             </li>
-        </ul>
+        </ol>
         <p>Mindez azért alakulhatott így, mert egy drágaköves családba születtem.</p>
         <h4>
             Jól hangzik mi?
@@ -90,13 +100,46 @@
             Több évtized próbálkozás után be kellett lássam, ez nekünk nem működik.
         </p>
         <p>
-            Fontos megérteni, hogy az Öcsém, aki ötvosrestauátor lett, ugyanide jutott. Neki annyiban szerencsésebb a helyzete, hogy az apánk semmennyire sem ért az ötvosséghez, azért kevésbé tud beleszólni a napi tevékenységbe. De végül ők sem tudtak korrekt megegyezést kötni.
+            Számomra fontos volt megérteni, hogy az öcsém, aki ötvosrestauátor lett, ugyanide jutott. Neki annyiban
+            szerencsésebb a helyzete, hogy az apánk semmennyire sem ért az ötvosséghez, azért kevésbé tud beleszólni a
+            napi tevékenységbe. De végül ők sem tudtak az együttműködés kereteiről megegyezést kötni.
         </p>
+
+        <h3>Hobbijaim:</h3>
+        <ul>
+            <li>
+                sziklamászás
+            </li>
+            <li>
+                drágakövek
+            </li>
+        </ul>
+
+        <div class="message">
+            <h4>Ha üzenetet szeretnél nekem küldeni, akkor az alábbi űrlapon megteheted</h4>
+            <label for="name">Neved:</label>
+            <input id="name" type="text">
+            
+            <label for="email">Email címed:</label>
+            <input id="email" type="email">
+            
+            <label for="message">üzeneted:</label>
+            <textarea id="message" name="message" rows="4" cols="50">
+            </textarea>
+                <br><br>
+                
+                <input type="submit" value="Submit">
+
+            <!-- 
+            <input id="message" type="textArrea"> -->
+        </div>
+
+
     </section>
     <footer class="footer">
         <p>
-            Nem értem  miért nem akar a gomb jobb oldalon megjelenni. Segítség!!!
-        </p> 
+            Nem értem miért nem akar a gomb jobb oldalon megjelenni. Segítség!!!
+        </p>
         <button onclick="topFunction()" id="goTopBtn" title="Go to top">Top</button>
     </footer>
     <script src="/js/main.js"></script>
