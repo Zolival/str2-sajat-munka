@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="./css/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/grid1Index.css">
+    <!-- valamiért a másik grid megoldás nem működik.
+    VALAKI MAGYARÁZZA MEG, HOGY MIÉRT!!! 
+    előre is köszönöm. -->
+    <!-- <link rel="stylesheet" href="./css/grid2Index.css"> -->
+</head>
+
+<body>
+    <div class="container">
+
+        <header class="header--dark">
+            <h3 class="header__title"> Admin Page <i class="fa fa-bars bars" aria-hidden="true"></i>
+            </h3>
+            <div class="header__search">
+                <input class="search__input" type="search" placeholder="Search for">
+                <button class="search__btn" type="submit"><i class="fa fa-search" aria-hidden="true"></i> </button>
+                <button class="user__btn" type="submit"><i class="fa fa-user" aria-hidden="true"></i> 
+                    <i  class="fa fa-sort-desc desc" aria-hidden="true"></i>
+                </button>
+            </div>
+        </header>
+        <main class="classMain">
+            
+            <aside>
+                <nav class="main__nav">
+                    <ul class="nav__ul">
+                        <li><i class=""></i>CORE</li>
+                        <li class="cursor"><i class=" fa fa-tachometer icons"></i><span> Dashboard </span></li>
+                        <li><i class=""></i>INTERFACE</li>
+                        <li><i class=" fa fa-windows icons"> </i><span> Layouts </span></i> <i class="fa fa-chevron-right chevron"
+                                aria-hidden="true"></i></li>
+                        <li><i class="fa fa-bookmark icons"> </i> <span> Pages </span><i class="fa fa-chevron-right chevron"
+                                aria-hidden="true"></i></li>
+                        <li><i class=""></i>ADDONS</li>
+                        <li><i class=" fa fa-area-chart icons"></i> <span> Chart </span></li>
+                        <li><i class="fa fa-table fw icons"></i><span> Tables </span></li>
+                    </ul>
+                </nav>
+            </aside>
+            <section class="content">
+                <h1>Dashboard</h1>
+                <div class="main__breadcrumb">Dashboard</div>
+
+                <div class="main__cards">
+
+                    <div class="main__card main__card--blue">
+                        <div class="card__top">Primary Card</div>
+                        <div class="card__bottom">View Details<i class="fa fa-chevron-right chevron"
+                                aria-hidden="true"></i></div>
+                    </div>
+                    <div class="main__card main__card--yellow">
+                        <div class="card__top">Warning Card</div>
+                        <div class="card__bottom"> View Details <i class="fa fa-chevron-right chevron"
+                                aria-hidden="true"></i></div>
+                    </div>
+                    <div class="main__card main__card--green">
+                        <div class="card__top">Success Card</div>
+                        <div class="card__bottom"> View Details <i class="fa fa-chevron-right chevron"
+                                aria-hidden="true"></i></div>
+                    </div>
+                    <div class="main__card main__card--red">
+                        <div class="card__top"> Danger Card </div>
+                        <div class="card__bottom"> View Details <i class="fa fa-chevron-right chevron"
+                                aria-hidden="true"></i></div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

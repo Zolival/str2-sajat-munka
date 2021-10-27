@@ -1,0 +1,204 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+.container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    /* grid-template-areas: 'nav nav nav nav nav nav'
+                    'nav section section section section'; */    
+}
+
+.header--dark {
+    background-color: rgb(51, 57, 64);
+    color: rgb(236, 236, 236);
+    /* unspecified parameters */
+    margin: none;
+    display: flex;
+    grid-column: 1 / span 5;
+    grid-row: 1;
+}
+
+    .header__title {
+        display: inline;
+        font-size: 1.25rem;
+        /* unspecified parameters */
+        font-weight: 400;
+        margin: auto auto auto 1rem;
+    }
+    .header__search {
+        display: inline;
+        /* unspecified parameters */
+        margin-right:  1rem;
+        float: right;
+
+    }
+    .search__input {
+        border-radius: 4px 0 0 4px;
+        padding: 0.375rem 0.75rem 0.375rem 0.75rem;
+        font-size: 1.2rem;
+        -webkit-transition: border 0.15s ease-out;
+        /* unspecified parameters */
+        margin: 0.5rem 0 0.5rem 0.75rem;
+    }
+    .search__input:focus {
+        border-color: rgb(128, 189, 255);
+        /* unspecified parameters */
+    }
+    .search__btn {
+        border-color: rgb(0, 123, 255);
+        /* unspecified parameters */
+        background-color: rgb(0, 122, 255);
+        border-radius: 0 4px 4px 0;
+        padding: 0.375rem 0.75rem 0.375rem 0.75rem;
+        font-size: 1.2rem;
+    }
+    /* unspecified parameters */
+    .user__btn {
+        color: rgb(150, 156, 161);
+        background-color: rgb(51, 57, 64);
+        padding: 0.375rem 0.75rem 0.375rem 0.75rem;
+        font-size: 1.2rem;
+        border-radius: 4px;
+    }
+    .bars {
+        padding-left: 12vw;
+        color: rgb(233, 236, 239);
+    }
+    .desc {
+        margin-left: .7rem;
+    }
+
+
+/* navigatin menu */
+.main__nav {
+    background-color: rgb(33, 37, 41);
+    /* unspecified parameters */
+    height: 550px;
+    padding-top: 10px;
+    color: rgb(100, 103, 103);
+    grid-column: 1 ;
+	grid-row: 2;
+    /* grid-area: nav ; */
+}
+
+.nav__ul {
+    /* unspecified parameters */
+}
+/* unspecified parameters */
+.icons {
+    color: rgb(100, 103, 103);
+    margin-right: 1rem;
+}
+
+.cursor, .cursor .icons {
+    color: rgb(233, 236, 239);
+}
+
+li {
+    margin: 2rem 2rem 0 0;
+    list-style: none;
+}
+
+li .chevron{
+    float: right;
+}
+
+.chevron{
+    margin-left: .8rem;
+}
+
+
+
+/* unspecified parameters */
+.content {
+    grid-column: 2 / span 4;
+    grid-row: 2;
+    /* grid-area: section; */
+}
+
+h1 {
+    margin: 2.2rem 2%;
+}
+
+.main__breadcrumb {
+    background-color: rgb(233, 236, 239);
+    border-radius: 0.25rem;
+    padding: 1rem 1.25rem 1rem 1.25rem;
+    /* unspecified parameters */
+    margin: 2%;
+    /* margin-right: 2%; */
+    /* grid-column: 2 / span 4; 
+    grid-row: 2; */
+}
+
+.main__cards {
+    /* unspecified parameters */
+    margin-top: 20px;
+    margin-right: 5px;
+    margin-left: 2%;
+    margin-right: 2%;
+    /* display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 10px;  */
+    background-color: rgb(246, 246, 246);
+    padding: 5px; 
+
+    grid-column: 2 / span 4; 
+    grid-row: 2;
+}
+
+.main__card {
+    border-radius: 0.15rem;
+    /* unspecified parameters */
+    color: rgb(233, 236, 239);
+    
+}
+
+.card__top {
+    border-radius: 0.25rem 0.25rem 0 0;
+    /* unspecified parameters */
+    /* height: 5rem; */
+    padding: 1rem;
+    font-size: 1.5rem;
+    box-shadow: 0 2px rgba(232, 233, 233, 0.13);
+}
+
+.card__bottom {
+    border-radius: 0 0 0.25rem 0.25rem;
+    /* unspecified parameters */
+    padding: 1rem;
+    font-size: 1.1rem;
+}
+
+.main__card--blue {
+    background-color: rgb(0, 123, 255);
+    /* unspecified parameters */
+}
+
+.main__card--yellow {
+    background-color: rgb(255, 193, 7);
+    /* unspecified parameters */
+}
+
+.main__card--green {
+    background-color: rgb(40, 167, 69);
+    /* unspecified parameters */
+}
+
+.main__card--red {
+    background-color: rgb(220, 53, 69);
+    /* unspecified parameters */
+}
+
+.main__card--blue,
+.main__card--green,
+.main__card--red,
+.main__card--yellow {
+    -webkit-transition: background 0.3s ease-out;
+    /* unspecified parameters */
+}
