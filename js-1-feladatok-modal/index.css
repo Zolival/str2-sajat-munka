@@ -1,0 +1,114 @@
+.modal-background {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.modal-background[open] {
+    display: flex;
+    animation: openMove 2.5s normal;
+}
+
+.modal-background[out] {
+    animation: closeMove 2,5s normal;
+}
+
+.modal-inner {
+    background-color: white;
+    border-radius: 0.5em;
+    width: 250px;
+    /* max-width: 50px; */
+    padding: 2rem;
+    margin: 2%;
+}
+
+#modal-inner-id[out] {
+    animation: closeMove 2.5s normal;
+}
+
+@media screen and (max-width: 600px) {
+    .modal-inner {
+        width: 500px;
+        margin: 25px;
+        max-width: 85%;
+    }
+}
+
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid black;
+}
+
+.modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.modal-btn {
+    margin: 0 5px;
+}
+
+.modal-okey-btn {
+    background-color: rgb(46, 204, 109);
+}
+
+.modal-cancel-btn {
+    background-color: rgb(231, 77, 61);
+}
+
+
+#modal-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    background-color: rgb(0, 0, 0);
+    opacity: 0.5;
+
+    animation: openBackground 3s normal;
+}
+
+#modal-overlay[out] {
+    animation: closeMove 2.5s normal;
+  }
+
+
+@keyframes openBackground {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 0.5
+    }
+}
+
+@keyframes openMove {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 0.5
+    }
+}
+
+@keyframes closeMove {
+    from {
+        opacity: 0.5
+    }
+
+    to {
+        opacity: 0
+    }
+}
