@@ -30,7 +30,7 @@
     animation: closeMove 2.5s normal;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 560px) {
     .modal-inner {
         width: 500px;
         margin: 25px;
