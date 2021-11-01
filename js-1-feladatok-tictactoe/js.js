@@ -12,9 +12,27 @@ const winnerTest = (id)=>{
     let colIndex = parseFloat(id.slice(indexOf+1 , ));
     console.log('rowIndex = ', rowIndex);
     console.log('colIndex = ', colIndex);
-    let idnumber = [rowIndex,  colIndex]
-    console.log('idnumberArray = ',  idnumber)
+    // let idnumber = [rowIndex,  colIndex]
+    let idNumber = `${colIndex}${colIndex}`
+    console.log('idnumberArray = ', typeof parseFloat(idNumber));
+
     
+
+    let rowControlNegative = [`${colIndex}-${rowIndex -1}` ,`${colIndex}-${rowIndex -2}`];
+    let rowControlPositive = [`${colIndex}-${rowIndex +1}` , `${colIndex}-${rowIndex +2}`];
+    console.log('rowControlNegative = ', rowControlNegative);
+    console.log('rowControlPositive = ', rowControlPositive);
+    let colControlNegative = [`${colIndex -1}-${rowIndex}`, `${colIndex -2}-${rowIndex}`];
+    let colControlPositive = [`${colIndex +1}-${rowIndex}`, `${colIndex +2}-${rowIndex}`];
+
+    
+    let obliqueControlNegative1 = [`${colIndex -1}-${rowIndex -1}`, `${colIndex -2}-${rowIndex -2}`];
+    let obliqueControlNegative2 = [`${colIndex -1}-${rowIndex +1}` , `${colIndex -2}-${rowIndex +2}`];
+    
+    let obliqueControlPositive1 = [`${colIndex +1}-${rowIndex +1}`, `${colIndex +2}-${rowIndex +2}`];
+    let obliqueControlPositive2 = [`${colIndex +1}-${rowIndex -1}`, `${colIndex +2}-${rowIndex -2}`];
+
+    /*
     let h = colIndex;
     for( h ; h < colIndex + resultNumber ; h++ ){
         console.log('forColIndex = ' , h)
@@ -23,9 +41,10 @@ const winnerTest = (id)=>{
     for(v ; v < rowIndex + resultNumber ; v++ ){
         console.log('forRowIndex = ' , v)        
     }
+*/
 /* 
     kiszámolható, hogy az aktuális cellába kattintva nyert-e az illető a többi indexhez képest?
-    
+    max 10 cella/sor és 10 cella/oszlop
     idnumber
     vízszintesen
     (ha kisebb mint max rowindex -3)
@@ -58,23 +77,27 @@ const buildGameGround = ()=>{
         for(let h = 0; h < horizontalCells; h += 1){
             const td = elFactory('td', {id:`${v}-${h}`, class:'cells free'}, ' ');
             
-            td.addEventListener('click', (e)=>{
-                console.log('id = ', e.target.getAttribute('id'));
-                e.target.innerHTML = playerIcon;  
-                e.target.setAttribute('class', 'cells busy');           
-                winnerTest(e.target.getAttribute('id'));
-                if(playerIcon == 'X'){
-                    e.target.style.background = 'green';
-                    xPlayer.push(e.target.getAttribute('id'));
-                    playerIcon = '0';
-                }else{
-                    e.target.style.background = 'red';
-                    yPlayer.push(e.target.getAttribute('id'));
-                    playerIcon = 'X';
-                }
-                console.log('xPlayer = ', xPlayer);
-                console.log('yPlayer = ', yPlayer);
-            });
+                td.addEventListener('click', (e)=>{
+                    console.log('id = ', e.target.getAttribute('id'));
+                    if(e.target.getAttribute('class').indexOf('free') >-1){
+
+                        e.target.innerHTML = playerIcon;  
+                        e.target.setAttribute('class', 'cells busy');           
+                        winnerTest(e.target.getAttribute('id'));
+                        if(playerIcon == 'X'){
+                            e.target.style.background = 'green';
+                            xPlayer.push(e.target.getAttribute('id'));
+                            playerIcon = '0';
+                        }else{
+                            e.target.style.background = 'red';
+                            yPlayer.push(e.target.getAttribute('id'));
+                            playerIcon = 'X';
+                        }
+                        console.log('xPlayer = ', xPlayer);
+                        console.log('yPlayer = ', yPlayer);
+                    }else{                    
+                    }
+                });
             
             tr.appendChild(td);
         }

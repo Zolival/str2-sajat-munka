@@ -1,9 +1,15 @@
+.table {
+    border: 5px solid rgb(209, 178, 138);
+    border-radius: 5px;
+}
+
 .cells {
     width: 80px;
     height: 80px;
     background-color: blueviolet;
-    margin: 10px;
-    border: 3px solid rgb(209, 178, 138);
+    /* margin: 10px; */
+    border: 3px solid goldenrod;
+    border-radius: 4px;
 
     text-align: center;
 }
@@ -12,3 +18,5 @@
     cursor: pointer;
     background-color: rgba(137, 43, 226, 0.705);
 }
+
+    
