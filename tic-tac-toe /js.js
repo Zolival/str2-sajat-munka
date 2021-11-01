@@ -1,7 +1,7 @@
 'use strict';
 
-const horizontalCells = 25;
-const verticalCells = 25;
+const horizontalCells = 5;
+const verticalCells = 5;
 let resultNumber = 3; //or 5
 let xPlayer = [];
 let yPlayer = [];
@@ -24,7 +24,7 @@ const winnerTest = (id)=>{
         console.log('forRowIndex = ' , v)        
     }
 /* 
-    kiszámolható, hogy az aktuális cellába kattintve nyert-e az illető a többi indexhez képest?
+    kiszámolható, hogy az aktuális cellába kattintva nyert-e az illető a többi indexhez képest?
     
     idnumber
     vízszintesen
