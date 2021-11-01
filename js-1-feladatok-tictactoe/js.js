@@ -41,17 +41,21 @@ const ruleStore3 = (colIndex, rowIndex)=>{
 
     let rowControlNegative = [`${rowIndex}-${colIndex -1}` ,`${rowIndex}-${colIndex -2}`];
     let rowControlPositive = [`${rowIndex}-${colIndex +1}` , `${rowIndex}-${colIndex +2}`];
-          
+    let centerControl1 = [`${rowIndex}-${colIndex -1}` ,`${rowIndex}-${colIndex +1}`];
+    
     let colControlNegative = [`${rowIndex -1}-${colIndex}`, `${rowIndex -2}-${colIndex}`];
     let colControlPositive = [`${rowIndex +1}-${colIndex}`, `${rowIndex +2}-${colIndex}`];
+    let centerControl2 = [`${rowIndex -1}-${colIndex}`, `${rowIndex +1}-${colIndex}`];
             
     let obliqueControlNegative1 = [`${rowIndex -1}-${colIndex -1}`, `${rowIndex -2}-${colIndex -2}`];
     let obliqueControlNegative2 = [`${rowIndex -1}-${colIndex +1}` , `${rowIndex -2}-${colIndex +2}`];
+    let centerControl3 = [`${rowIndex +1}-${colIndex +1}` , `${rowIndex -1}-${colIndex -1}`];
             
     let obliqueControlPositive1 = [`${rowIndex +1}-${colIndex +1}`, `${rowIndex +2}-${colIndex +2}`];
     let obliqueControlPositive2 = [`${rowIndex +1}-${colIndex -1}`, `${rowIndex +2}-${colIndex -2}`];
-    let resultNumber3 = [rowControlNegative, rowControlPositive, colControlNegative, colControlPositive, obliqueControlNegative1, obliqueControlNegative2, obliqueControlPositive1, obliqueControlPositive2];
-    
+    let centerControl4 = [`${rowIndex +1}-${colIndex -1}`, `${rowIndex -1}-${colIndex +1}`]; 
+
+    let resultNumber3 = [rowControlNegative, rowControlPositive, colControlNegative, colControlPositive, obliqueControlNegative1, obliqueControlNegative2, obliqueControlPositive1, obliqueControlPositive2, centerControl1, centerControl2, centerControl3, centerControl4];
     // console.log('ruleStore3 = ', resultNumber3)
     return resultNumber3
 }
