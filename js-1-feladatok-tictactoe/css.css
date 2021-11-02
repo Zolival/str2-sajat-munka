@@ -1,6 +1,32 @@
+.massage-div {
+    width: 150px;
+    height: 20px;
+    margin: 0 0 10px 15px;
+    color: red;
+    text-align: center;
+   
+}
+
+.inputsDiv {
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+input {
+    width: 40px;
+    border: solid black 1px;
+    border-radius: 3px;    
+}
+
 .table {
     border: 5px solid rgb(209, 178, 138);
     border-radius: 5px;
+}
+
+.table.hidden {
+    display: none;
 }
 
 .cells {
@@ -14,9 +40,11 @@
     text-align: center;
 }
 
-.free:hover {
+.cells.free:hover {
     cursor: pointer;
     background-color: rgba(137, 43, 226, 0.705);
 }
 
-    
+ .btn {
+     margin: 10px 5px;
+ }

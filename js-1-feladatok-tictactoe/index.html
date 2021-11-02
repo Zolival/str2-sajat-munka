@@ -9,12 +9,23 @@
 </head>
 <body>
     <h1>welcome to tic tac toe</h1>
-    <p>for now only workspace</p>    
+    <div class="inputsDiv">
+        <label for="rowNumber">Row number: </label>
+        <input id="rowNumber" type="number" value="3">
+    </div>
+    <div class="inputsDiv">
+        <label for="colNumber">Col number: </label>
+        <input id="colNumber" type="number" value="3">
+    </div>
     
-    <table class="table" id="playGround">
+    <div class="massage-div">
+        <h3 class="massage" id="resulte"></h3>
+    </div>
+    
+    <div id="container">
 
-    </table>
-
+    </div>
+    <button class="btn" id="starts__btn" type="" onclick="startGame()"> Start game </button>
     <script src="./js.js"></script>
 </body>
 </html>
