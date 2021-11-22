@@ -186,6 +186,7 @@
  .footer {
      padding: 30px 0 20px 0;
      display: block;
+     text-align: right;
  }
 
  .footer p {
