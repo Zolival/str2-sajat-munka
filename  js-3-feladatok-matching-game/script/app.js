@@ -3,13 +3,51 @@ let cardNumber = 10 ;
 let playRound = 0 ;
 let playIconsArr = ['A', 'B', 'C', 'D', 'E'];
 let playPhotosArr = [
-    './img/1-15985_spike-fluttershy-fluttershy-pinkie-pie-my-little-pony-svg.png',
     './img/aaeeeab34593fe55b6413887aedcea5d.png',
-    './img/imgbin-pinkie-pie-pony-applejack-rarity-birthday-birthday-9bqgHZUDB4H9Bq5ASimDEqeLn.jpg',
-    './img/pinkie-pie-rainbow-dash-twilight-sparkle-rarity-pony-unicorn-birthday.jpg',
-    './img/twilight-sparkle-pinkie-pie-rainbow-dash-rarity-pony-twilight-sparkle-transparent-png-thumbnail.jpg'
+    './img/rarity-pinkie-pie-rainbow-dash-spike-twilight-sparkle-my-little-pony-d83e1e713a7f4627626701742b97b5ec.png',
+    './img/fluttershy-rainbow-dash-pinkie-pie-twilight-sparkle-princess-luna-my-little-pony-c9f8cd083a68f225ca85a42ead6a3064.png',
+    './img/pinkie-pie-rainbow-dash-twilight-sparkle-rarity-pony-unicorn-birthday-3d0abeed62ae289b39786596c9b9a93b.png',
+    './img/applejack-rarity-twilight-sparkle-pinkie-pie-rainbow-dash-jack-2a6407c3313a80ed4d318df0350294ab.png'
 ];
+const openedCards = [];
+const cardOpen = () {
+    openedCards.push(this);
 
+    if(openedCards.length === 2){
+        if(openedCards[0].type === openedCards[1].type){
+            matched();
+        } else {
+            unmatched();
+        }
+    }
+};
+
+let clickCounter = 0 ;
+const addClickEvents = (e)=>{
+    
+    // e.target.style.background = 'green';
+    e.target.classList.add(`open`, `unmatched`);
+    const eventClass = e.target.getAttribute('src');
+    console.log('clickCounter, eventClass = ', clickCounter, eventClass);
+    if(e.target.getAttribute('class').indexOf('imgIndex_') >-1){
+        console.log(e.target.getAttribute('id'));        
+    }
+}
+        /*
+        e.target.innerHTML = playerIcon;  
+        e.target.setAttribute('class', 'cells busy');
+        if(playerIcon == 'X'){
+            winnerTest(e.target.getAttribute('id'), 'X');
+            xPlayer.push(e.target.getAttribute('id'));
+            playerIcon = '0';
+        }else{
+            e.target.style.background = 'red';
+            winnerTest(e.target.getAttribute('id'), '0');
+            yPlayer.push(e.target.getAttribute('id'));
+            playerIcon = 'X';
+    }else{                    
+    }
+    */
 
 function shuffleDubleArr(playIconsArr) {
     let array = playIconsArr.concat(playIconsArr);
@@ -22,12 +60,12 @@ function shuffleDubleArr(playIconsArr) {
 
 
 const restartGame = () => {
-    document.querySelector(`#playGround__${playRound}`)
-        .setAttribute('class', 'playGround hidden');
-        massage('.massage', '')
+    document.querySelector(`#deckId_${playRound}`)
+        .setAttribute('class', 'hidden');
+        massage('.massage', '');
         playRound += 1;
         document.querySelector('#playContainer')
-        .appendChild(elFactory('div', {class: 'playGround', id: `playGround__${playRound}`}));
+        .appendChild(elFactory('div', {class: 'playGround', id: `deckId_${playRound}`}));
     
     buildGameGround();
 }
@@ -36,27 +74,21 @@ const restartGame = () => {
 const startGame = () => {
     playRound +=1
     document.querySelector('#playContainer')
-        .appendChild(elFactory('div', {class: 'playGround', id: `playGround__${playRound}`}));
+        .appendChild(elFactory('div', {class: 'deck', id: `deckId_${playRound}`}));
     
     buildGameCards();
 }
 
 const buildGameCards = ()=>{
-    const playGround = document.querySelector(`#playGround__${playRound}`);
+    const playGround = document.querySelector(`#deckId_${playRound}`);
     const suffledIcons = shuffleDubleArr(playPhotosArr);
     suffledIcons.forEach((icon, index)=>{
-        playGround.appendChild(
-            elFactory('div', {class:"flip-card", id:`flip-card_${index}`}, 
-                elFactory('div', {class:"flip-card-inner", id:`flip-card-inner_${index}`},
-                    elFactory('div', {class:"flip-card-front", id:`flip-card-front_${index}`}),
-                    elFactory('div', {class:"flip-card-back", id:`flip-card-back_${index}`},
-                        // elFactory('h1', {class:"icns"} , icon )
-                        elFactory('img', {src: icon , alt: "Avatar", class: 'img'} )
+        
+           let el = elFactory('div', {class: `card`, id:`card_${index}`}, 
+                        elFactory('img', {src: icon , alt:"card img", class:'img'} )
                     )
-                )
-            )
-            
-        );
+            el.addEventListener('click', addClickEvents);
+            playGround.appendChild(el);
     })
 }
 
@@ -78,5 +110,30 @@ const elFactory = (type, attributes, ...children) => {
     return el;
 }
 
+const clock = document.querySelector('#clock');
+
+const createTime = (date = new Date()) => {
+    const intlHu = Intl.DateTimeFormat('hu', {
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+    });
+    const output = intlHu.format(date);
+    clock.textContent = output;
+    return new Promise((resolve) => {
+        let id = setTimeout(() => {
+            clearTimeout(id);
+            resolve();
+        }, 1000);
+    });
+};
+
+(async () => {
+    while (true) {
+        await createTime();
+    }
+})();
+
 
 startGame();
+createTime(Date.UTC(2020, 11, 20, 3, 23, 16, 738))
