@@ -12,7 +12,7 @@ let playPhotosArr = [
     `./img/twilight-sparkle-pony-pinkie-pie-applejack-princess-celestia-twilight-fcda48c70f7a8f7cab490ee1031025b9.png`
 ];
 
-const openedCards = [];
+let openedCards = [];
 let clickCounter = 0 ;
 
 const cardOpen = () => {
@@ -30,7 +30,7 @@ const cardOpen = () => {
             console.log('cardOpen else');
             setTimeout(()=>{
                 openedCards.forEach( (val)=> 
-                console.log(document.querySelectorAll(`.${val}`).getAttribute() ) );
+                console.log(document.querySelectorAll(`.${val}`)) );
                 openedCards = []
             }, 3750)
         }
@@ -42,9 +42,10 @@ const addClickEvents = (e) => {
     clickCounter += 1
     const evParentChild = e.target.getAttribute(`class`);
     const evParentClass = e.target.parentElement.getAttribute('class');
-    console.log('evParentClass = ', evParentClass);
+    console.log('evParentChild = ', evParentChild);
     if(evParentClass.indexOf(`flip-card-inner`) > -1) {
         let ele = e.target.parentElement.classList.add(`watched`);
+        console.log('ele = ', ele);
         openedCards.push(evParentChild);
         cardOpen();
     }else {
@@ -89,12 +90,12 @@ const buildGameCards = ()=>{
     const playGround = document.querySelector(`#playGround__${playRound}`);
     const suffledIcons = shuffleDubleArr(playPhotosArr);
     suffledIcons.forEach((icon, index)=>{
-        
-           let el = elFactory('div', {class: `flip-card flipcard-div`, id:`flip-card_${index}`}, 
-                elFactory('div', {class:`flip-card-inner imgInnerClId_${icon}`, id:`flip-card-inner_${index}`},
-                    elFactory('div', {class:`flip-card-front flip-card-frontClId_${icon}`, id:`flip-card-front_${index}`}),
-                    elFactory('div', {class:`flip-card-back imgBackClId_${icon}`, id:`flip-card-back_${index}`},
-                        // elFactory('h1', {class:"icns"} , icon )
+            let clName = icon.replaceAll('.', '').replaceAll('/', '');
+            console.log(clName)
+            let el = elFactory('div', {class: `flip-card , flipcard-div`, id:`flip-card_${index}`}, 
+                elFactory('div', {class:`flip-card-inner , .imgInnerClId_${clName}`, id:`flip-card-inner_${index}`},
+                    elFactory('div', {class:`flip-card-front , .flip-card-frontClId_${clName}`, id:`flip-card-front_${index}`}),
+                    elFactory('div', {class:`flip-card-back , .imgBackClId_${clName}`, id:`flip-card-back_${index}`},
                         elFactory('img', {src: `${icon}` , alt: "card img", class: 'img'} )
                     )
                 )
