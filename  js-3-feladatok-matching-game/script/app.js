@@ -7,49 +7,57 @@ let playPhotosArr = [
     './img/rarity-pinkie-pie-rainbow-dash-spike-twilight-sparkle-my-little-pony-d83e1e713a7f4627626701742b97b5ec.png',
     './img/fluttershy-rainbow-dash-pinkie-pie-twilight-sparkle-princess-luna-my-little-pony-c9f8cd083a68f225ca85a42ead6a3064.png',
     './img/pinkie-pie-rainbow-dash-twilight-sparkle-rarity-pony-unicorn-birthday-3d0abeed62ae289b39786596c9b9a93b.png',
-    './img/applejack-rarity-twilight-sparkle-pinkie-pie-rainbow-dash-jack-2a6407c3313a80ed4d318df0350294ab.png'
+    // './img/applejack-rarity-twilight-sparkle-pinkie-pie-rainbow-dash-jack-2a6407c3313a80ed4d318df0350294ab.png',
+    // `./img/rainbow-dash-my-little-pony-twilight-sparkle-deviantart-dash-48cdab4eae42f0afd0cac08f660daa4f.png`,
+    `./img/twilight-sparkle-pony-pinkie-pie-applejack-princess-celestia-twilight-fcda48c70f7a8f7cab490ee1031025b9.png`
 ];
-const openedCards = [];
-const cardOpen = () {
-    openedCards.push(this);
 
-    if(openedCards.length === 2){
-        if(openedCards[0].type === openedCards[1].type){
-            matched();
+let openedCards = [];
+let clickCounter = 0 ;
+let roundNum = 0;
+let startedPlay = false;
+
+const cardOpen = () => {
+    if(!startedPlay){
+        startTimer();
+        startedPlay = true;
+    }
+    console.log(`openedCards = `, openedCards);
+    if(openedCards.length >= 2){
+        roundNum += 1;
+        if(openedCards[0] === openedCards[1]){
+            openedCards.forEach( (val, i)=> {
+                let el = document.querySelector(`${val}`);
+                el.classList.add('pair');
+                console.log('cardOpen  el=', el)
+                openedCards = []
+            });
         } else {
-            unmatched();
+            console.log('cardOpen else');
+            setTimeout(()=>{
+                openedCards.forEach( (val)=> document.querySelector(`.${val}`).classList.remove(`watched`) );
+                openedCards = []
+            }, 3750)
         }
     }
 };
 
-let clickCounter = 0 ;
-const addClickEvents = (e)=>{
-    
-    // e.target.style.background = 'green';
-    e.target.classList.add(`open`, `unmatched`);
-    const eventClass = e.target.getAttribute('src');
-    console.log('clickCounter, eventClass = ', clickCounter, eventClass);
-    if(e.target.getAttribute('class').indexOf('imgIndex_') >-1){
-        console.log(e.target.getAttribute('id'));        
+
+const addClickEvents = (e) => {
+    clickCounter += 1
+    const evParentClass = e.target.parentElement.getAttribute('class');
+    console.log('evParentClass = ', evParentClass);
+    if(evParentClass.indexOf(`flip-card-inner`) > -1) {
+        let ele = e.target.parentElement.classList.add(`watched`);
+        openedCards.push(e.target.parentElement.getAttribute(`class`));
+        cardOpen();
+    }else {
+        console.error(e);
     }
 }
-        /*
-        e.target.innerHTML = playerIcon;  
-        e.target.setAttribute('class', 'cells busy');
-        if(playerIcon == 'X'){
-            winnerTest(e.target.getAttribute('id'), 'X');
-            xPlayer.push(e.target.getAttribute('id'));
-            playerIcon = '0';
-        }else{
-            e.target.style.background = 'red';
-            winnerTest(e.target.getAttribute('id'), '0');
-            yPlayer.push(e.target.getAttribute('id'));
-            playerIcon = 'X';
-    }else{                    
-    }
-    */
+        
 
-function shuffleDubleArr(playIconsArr) {
+const shuffleDubleArr = (playIconsArr) => {
     let array = playIconsArr.concat(playIconsArr);
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -60,12 +68,12 @@ function shuffleDubleArr(playIconsArr) {
 
 
 const restartGame = () => {
-    document.querySelector(`#deckId_${playRound}`)
-        .setAttribute('class', 'hidden');
+    document.querySelector(`#playGround__${playRound}`)
+        .setAttribute('class', 'playGround hidden');
         massage('.massage', '');
         playRound += 1;
         document.querySelector('#playContainer')
-        .appendChild(elFactory('div', {class: 'playGround', id: `deckId_${playRound}`}));
+        .appendChild(elFactory('div', {class: 'playGround', id: `playGround__${playRound}`}));
     
     buildGameGround();
 }
@@ -74,20 +82,26 @@ const restartGame = () => {
 const startGame = () => {
     playRound +=1
     document.querySelector('#playContainer')
-        .appendChild(elFactory('div', {class: 'deck', id: `deckId_${playRound}`}));
+        .appendChild(elFactory('div', {class: 'playGround', id: `playGround__${playRound}`}));
     
     buildGameCards();
 }
 
 const buildGameCards = ()=>{
-    const playGround = document.querySelector(`#deckId_${playRound}`);
+    const playGround = document.querySelector(`#playGround__${playRound}`);
     const suffledIcons = shuffleDubleArr(playPhotosArr);
     suffledIcons.forEach((icon, index)=>{
-        
-           let el = elFactory('div', {class: `card`, id:`card_${index}`}, 
-                        elFactory('img', {src: icon , alt:"card img", class:'img'} )
+            let clName = icon.replaceAll('.', '').replaceAll('/', '');
+            // console.log(clName)
+            let el = elFactory('div', {class: `flip-card flipcard-div`, id:`flip-card_${index}`}, 
+                elFactory('div', {class:`flip-card-inner imgInnerId_${clName}`, id:`flip-card-inner_${index}`},
+                    elFactory('div', {class:`flip-card-front flip-card-frontId_${clName}`, id:`flip-card-front_${index}`}),
+                    elFactory('div', {class:`flip-card-back imgBackId_${clName}`, id:`flip-card-back_${index}`},
+                        elFactory('img', {src: `${icon}` , alt: "card img", class: 'img'} )
                     )
-            el.addEventListener('click', addClickEvents);
+                )
+            )
+            // el.addEventListener('click', addClickEvents);
             playGround.appendChild(el);
     })
 }
@@ -112,28 +126,30 @@ const elFactory = (type, attributes, ...children) => {
 
 const clock = document.querySelector('#clock');
 
-const createTime = (date = new Date()) => {
-    const intlHu = Intl.DateTimeFormat('hu', {
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric',
-    });
-    const output = intlHu.format(date);
-    clock.textContent = output;
-    return new Promise((resolve) => {
-        let id = setTimeout(() => {
-            clearTimeout(id);
-            resolve();
-        }, 1000);
-    });
-};
+// @description game timer
+let second = 0, minute = 0, hour = 0;
+const timer = document.querySelector("#clock");
+var interval;
+const startTimer =() => {
+    interval = setInterval(() => {
+        timer.innerHTML = minute.toString().padStart(2, '0') +":"+second.toString().padStart(2, '0') ;
+        second++;
+        if(second == 60){
+            minute++;
+            second=0;
+        }
+        if(minute == 60){
+            hour++;
+            minute = 0;
+        }
+    }, 1000);
+}
 
-(async () => {
-    while (true) {
-        await createTime();
-    }
-})();
 
 
 startGame();
-createTime(Date.UTC(2020, 11, 20, 3, 23, 16, 738))
+
+(() => {
+    document.querySelectorAll('.flip-card-inner')
+    .forEach( (card) => card.addEventListener(`click`, addClickEvents) );
+})();
