@@ -1,7 +1,5 @@
 'use strict';
-let cardNumber = 10 ;
-let playRound = 0 ;
-let playIconsArr = ['A', 'B', 'C', 'D', 'E'];
+
 let playPhotosArr = [
     './img/aaeeeab34593fe55b6413887aedcea5d.png',
     './img/rarity-pinkie-pie-rainbow-dash-spike-twilight-sparkle-my-little-pony-d83e1e713a7f4627626701742b97b5ec.png',
@@ -12,50 +10,76 @@ let playPhotosArr = [
     `./img/twilight-sparkle-pony-pinkie-pie-applejack-princess-celestia-twilight-fcda48c70f7a8f7cab490ee1031025b9.png`
 ];
 
+let playRound = 0;
 let openedCards = [];
-let clickCounter = 0 ;
 let roundNum = 0;
+let pairNum = 0;
 let startedPlay = false;
+let lastParentid;
+
+// @description game timer
+const timer = document.querySelector("#clock");
+let second = 0, minute = 0, hour = 0;
+// ------------
+
+const chackedGameFinish = () => {
+    pairNum += 1;
+    if (pairNum == playPhotosArr.length) {
+        setTimeout(() => {
+            restartGame();
+            clearInterval(setInterval);
+        }, 5000);
+    }
+}
 
 const cardOpen = () => {
-    if(!startedPlay){
-        startTimer();
-        startedPlay = true;
-    }
-    console.log(`openedCards = `, openedCards);
-    if(openedCards.length >= 2){
+    playCecking();
+
+    if (openedCards.length >= 2) {
         roundNum += 1;
-        if(openedCards[0] === openedCards[1]){
-            openedCards.forEach( (val, i)=> {
-                let el = document.querySelector(`${val}`);
-                el.classList.add('pair');
-                console.log('cardOpen  el=', el)
-                openedCards = []
-            });
+        if (openedCards[0] === openedCards[1]) {
+            setTimeout(() => {
+                openedCards.forEach((val, i) => {
+                    document.querySelectorAll(`.${val.replaceAll(' ', '.')}`)[i].classList.add(`pair`);
+                    document.querySelectorAll(`.${val.replaceAll(`flip-card-inner`, `image`)
+                    .replaceAll(` watched`, ``).replaceAll(' ', '.')}`)[i]
+                    .classList.add(`pulsePair`);
+                });
+                chackedGameFinish();
+                openedCards = [];
+                lastParentid = 0;
+            }, 800)
         } else {
-            console.log('cardOpen else');
-            setTimeout(()=>{
-                openedCards.forEach( (val)=> document.querySelector(`.${val}`).classList.remove(`watched`) );
-                openedCards = []
-            }, 3750)
+            setTimeout(() => {
+                openedCards.forEach((val) => document.querySelector(`.${val.replaceAll(' ', '.')}`).classList.remove(`watched`));
+                openedCards = [];
+                lastParentid = 0;
+            }, 2750)
         }
     }
 };
 
-
-const addClickEvents = (e) => {
-    clickCounter += 1
-    const evParentClass = e.target.parentElement.getAttribute('class');
-    console.log('evParentClass = ', evParentClass);
-    if(evParentClass.indexOf(`flip-card-inner`) > -1) {
-        let ele = e.target.parentElement.classList.add(`watched`);
-        openedCards.push(e.target.parentElement.getAttribute(`class`));
-        cardOpen();
-    }else {
-        console.error(e);
+const playCecking = () => {
+    if (!startedPlay) {
+        startTimer();
+        startedPlay = true;
     }
 }
-        
+const addClickEvents = (e) => {    
+        const evParentClass = e.target.parentElement.getAttribute('class');
+        const evParentId = e.target.parentElement.getAttribute('id');
+        if(lastParentid != evParentId){
+            if (evParentClass.indexOf(`flip-card-inner`) > -1 && openedCards.length < 2 ) {
+                let ele = e.target.parentElement.classList.add(`watched`);
+                openedCards.push(e.target.parentElement.getAttribute(`class`));
+                cardOpen();
+            } else {
+                console.error(e);
+            }
+            lastParentid = evParentId
+        }
+}
+
 
 const shuffleDubleArr = (playIconsArr) => {
     let array = playIconsArr.concat(playIconsArr);
@@ -68,52 +92,55 @@ const shuffleDubleArr = (playIconsArr) => {
 
 
 const restartGame = () => {
-    document.querySelector(`#playGround__${playRound}`)
-        .setAttribute('class', 'playGround hidden');
-        massage('.massage', '');
-        playRound += 1;
-        document.querySelector('#playContainer')
-        .appendChild(elFactory('div', {class: 'playGround', id: `playGround__${playRound}`}));
-    
-    buildGameGround();
-}
+    const element = document.querySelector(`#playGround__${playRound}`);
+        element.classList.add('hidden');
+        element.remove(`playGround`);
+    second = 0;
+    minute = 0;
+    hour = 0;
+    startedPlay = false;
+    lastParentid = 0;
+    openedCards = [];
+    roundNum = 0;
+    pairNum = 0;
+    startGame();
+} 
 
 
 const startGame = () => {
-    playRound +=1
+    playRound += 1
     document.querySelector('#playContainer')
-        .appendChild(elFactory('div', {class: 'playGround', id: `playGround__${playRound}`}));
-    
+        .appendChild(elFactory('div', { class: 'playGround', id: `playGround__${playRound}` }));
+
     buildGameCards();
+    addEvents();
 }
 
-const buildGameCards = ()=>{
+const buildGameCards = () => {
     const playGround = document.querySelector(`#playGround__${playRound}`);
     const suffledIcons = shuffleDubleArr(playPhotosArr);
-    suffledIcons.forEach((icon, index)=>{
-            let clName = icon.replaceAll('.', '').replaceAll('/', '');
-            // console.log(clName)
-            let el = elFactory('div', {class: `flip-card flipcard-div`, id:`flip-card_${index}`}, 
-                elFactory('div', {class:`flip-card-inner imgInnerId_${clName}`, id:`flip-card-inner_${index}`},
-                    elFactory('div', {class:`flip-card-front flip-card-frontId_${clName}`, id:`flip-card-front_${index}`}),
-                    elFactory('div', {class:`flip-card-back imgBackId_${clName}`, id:`flip-card-back_${index}`},
-                        elFactory('img', {src: `${icon}` , alt: "card img", class: 'img'} )
-                    )
+    suffledIcons.forEach((icon, index) => {
+        let clName = icon.replaceAll('.', '').replaceAll('/', '');
+        let el = elFactory('div', { class: `flip-card flipcard-div`, id: `flip-card_${index}` },
+            elFactory('div', { class: `flip-card-inner flip-card-innerId_${clName}`, id: `flip-card-inner_${index}` },
+                elFactory('div', { class: `flip-card-front flip-card-frontId_${clName}`, id: `flip-card-front_${index}` }),
+                elFactory('div', { class: `flip-card-back flip-card-backId_${clName}`, id: `flip-card-back_${index}` },
+                    elFactory('img', { src: `${icon}`, alt: "card image", class: `image imageId_${clName}` })
                 )
             )
-            // el.addEventListener('click', addClickEvents);
-            playGround.appendChild(el);
+        )
+        playGround.appendChild(el);
     })
 }
 
 // elFactory(type, attributes, ...children)
 const elFactory = (type, attributes, ...children) => {
     const el = document.createElement(type);
-    
+
     for (let key in attributes) {
         el.setAttribute(key, attributes[key]);
     }
-    
+
     children.forEach((child) => {
         if (typeof child === "string") {
             el.appendChild(document.createTextNode(child));
@@ -124,21 +151,20 @@ const elFactory = (type, attributes, ...children) => {
     return el;
 }
 
-const clock = document.querySelector('#clock');
-
 // @description game timer
-let second = 0, minute = 0, hour = 0;
-const timer = document.querySelector("#clock");
-var interval;
-const startTimer =() => {
-    interval = setInterval(() => {
-        timer.innerHTML = minute.toString().padStart(2, '0') +":"+second.toString().padStart(2, '0') ;
+// const timer = document.querySelector("#clock");
+// let second = 0, minute = 0, hour = 0;
+timer.innerHTML = minute.toString().padStart(2, '0') + ":" + second.toString().padStart(2, '0');
+ 
+const startTimer = () =>{ 
+    setInterval(() => {
+        timer.innerHTML = minute.toString().padStart(2, '0') + ":" + second.toString().padStart(2, '0');
         second++;
-        if(second == 60){
+        if (second == 60) {
             minute++;
-            second=0;
+            second = 0;
         }
-        if(minute == 60){
+        if (minute == 60) {
             hour++;
             minute = 0;
         }
@@ -147,9 +173,9 @@ const startTimer =() => {
 
 
 
-startGame();
-
-(() => {
+const addEvents = () => {
     document.querySelectorAll('.flip-card-inner')
-    .forEach( (card) => card.addEventListener(`click`, addClickEvents) );
-})();
+    .forEach((card) => card.addEventListener(`click`, addClickEvents));
+};
+
+startGame();
