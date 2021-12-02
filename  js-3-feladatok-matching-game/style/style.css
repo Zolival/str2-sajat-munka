@@ -23,6 +23,7 @@ body{
 
 .image { 
     max-width: 17vw;
+    max-height: 42vh;
     height: auto;
 }
 

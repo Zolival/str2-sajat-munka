@@ -1,13 +1,48 @@
 'use strict';
-
-let playPhotosArr = [
+/*
+const playPhotosArr = [
     './img/aaeeeab34593fe55b6413887aedcea5d.png',
-    './img/rarity-pinkie-pie-rainbow-dash-spike-twilight-sparkle-my-little-pony-d83e1e713a7f4627626701742b97b5ec.png',
+    './img/applejack-rarity-twilight-sparkle-pinkie-pie-rainbow-dash-jack-2a6407c3313a80ed4d318df0350294ab.png',
+    './img/fluttershy-applejack-pinkie-pie-twilight-sparkle-rainbow-dash-my-little-pony-fe9bf0dd635e0b665747324cfb01ab65.png',
     './img/fluttershy-rainbow-dash-pinkie-pie-twilight-sparkle-princess-luna-my-little-pony-c9f8cd083a68f225ca85a42ead6a3064.png',
+    './img/pinkie-pie-rainbow-dash-rarity-twilight-sparkle-applejack-pinkie-pie-png-image-f9f9d007c36213dac045b356ceb64c76.png',
+    './img/pinkie-pie-twilight-sparkle-pony-rarity-rainbow-dash-pie-0c4a23e67afe3bb4b9666c223f35a1ce.png',
     './img/pinkie-pie-rainbow-dash-twilight-sparkle-rarity-pony-unicorn-birthday-3d0abeed62ae289b39786596c9b9a93b.png',
-    // './img/applejack-rarity-twilight-sparkle-pinkie-pie-rainbow-dash-jack-2a6407c3313a80ed4d318df0350294ab.png',
-    // `./img/rainbow-dash-my-little-pony-twilight-sparkle-deviantart-dash-48cdab4eae42f0afd0cac08f660daa4f.png`,
-    `./img/twilight-sparkle-pony-pinkie-pie-applejack-princess-celestia-twilight-fcda48c70f7a8f7cab490ee1031025b9.png`
+    './img/pony-pinkie-pie-twilight-sparkle-applejack-bonbon-my-little-pony-1bb5e348f9fb07e0a5d1f9ff4cab316f.png',
+    `./img/rainbow-dash-my-little-pony-twilight-sparkle-deviantart-dash-48cdab4eae42f0afd0cac08f660daa4f.png`,
+    './img/rainbow-dash-twilight-sparkle-my-little-pony-rainbow-dash-cliparts-88974a3df3c9e6d82040cefe66f5de43.png',
+    './img/rarity-pinkie-pie-rainbow-dash-spike-twilight-sparkle-my-little-pony-d83e1e713a7f4627626701742b97b5ec.png',
+    './img/rarity-pinkie-pie-twilight-sparkle-spike-applejack-rarity-cliparts-b23f6b451bd2a7e49604c2ed12ad6bc2.png',
+    './img/rarity-twilight-sparkle-my-little-pony-unicorn-unicorn-face-1521868bc32ecae1652518a470dbbf05.png',
+    `./img/twilight-sparkle-pony-pinkie-pie-applejack-princess-celestia-twilight-fcda48c70f7a8f7cab490ee1031025b9.png`,
+];
+*/
+
+// https://www.pngegg.com/en/png-zzlec/download
+
+
+const playPhotosArr = [
+   /* './img/newImg/pngegg (1).png',
+    './img/newImg/pngegg (2).png',
+    './img/newImg/pngegg (3).png',
+    './img/newImg/pngegg (4).png',
+    './img/newImg/pngegg (5).png',
+    './img/newImg/pngegg (6).png',
+    './img/newImg/pngegg (7).png',
+    './img/newImg/pngegg (8).png',
+    './img/newImg/pngegg (9).png',
+    './img/newImg/pngegg (10).png',
+    */
+    './img/newImg/pngegg (11).png',
+    './img/newImg/pngegg (12).png',
+    './img/newImg/pngegg (13).png',
+    './img/newImg/pngegg (14).png',
+    './img/newImg/pngegg (15).png',
+    './img/newImg/pngegg (16).png',
+    './img/newImg/pngegg (17).png',
+    './img/newImg/pngegg (18).png',
+    './img/newImg/pngegg (19).png',
+    './img/newImg/pngegg (20).png'
 ];
 
 let playRound = 0;
@@ -120,7 +155,8 @@ const buildGameCards = () => {
     const playGround = document.querySelector(`#playGround__${playRound}`);
     const suffledIcons = shuffleDubleArr(playPhotosArr);
     suffledIcons.forEach((icon, index) => {
-        let clName = icon.replaceAll('.', '').replaceAll('/', '');
+        if(icon != ''){
+        let clName = icon.replaceAll('.', '').replaceAll('/', '').replaceAll('(', '').replaceAll(')', '').replaceAll(' ', '');
         let el = elFactory('div', { class: `flip-card flipcard-div`, id: `flip-card_${index}` },
             elFactory('div', { class: `flip-card-inner flip-card-innerId_${clName}`, id: `flip-card-inner_${index}` },
                 elFactory('div', { class: `flip-card-front flip-card-frontId_${clName}`, id: `flip-card-front_${index}` }),
@@ -130,6 +166,7 @@ const buildGameCards = () => {
             )
         )
         playGround.appendChild(el);
+        }
     })
 }
 
