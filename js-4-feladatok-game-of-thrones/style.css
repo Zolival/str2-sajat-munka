@@ -10,7 +10,7 @@ body {
     display: flex;
 }
 
-main {
+.main-container {
     width: 79vw;
     height: 100vh;
     padding: 0;
@@ -35,4 +35,39 @@ aside {
 
 h3 {
     margin: 2.5rem;
+}
+
+.search__div {
+    display: inline;
+    /* unspecified parameters */
+    margin-right:  1rem;
+    float: right;
+
+}
+
+.search__input {
+    border-radius: 4px 0 0 4px;
+    padding: 0.375rem 0.75rem 0.375rem 0.75rem;
+    font-size: 1.2rem;
+    /* unspecified parameters */
+    margin: 0.5rem 0 0.5rem 0.75rem;
+}
+.search__input:focus {
+    border-color: rgb(128, 189, 255);
+    -webkit-transition: border 0.15s ease-out;
+    /* unspecified parameters */
+}
+
+.search__btn {
+    border-color: rgb(0, 123, 255);
+    /* unspecified parameters */
+    background-color: rgb(0, 122, 255);
+    border-radius: 0 4px 4px 0;
+    padding: 0.375rem 0.75rem 0.375rem 0.75rem;
+    font-size: 1.2rem;
+    transition: all 0.15s ease-out;
+}
+.search__btn:hover{
+    cursor: pointer;
+    background-color: rgb(0, 162, 255);
 }

@@ -4,16 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="fonts/Game_of_Thrones.ttf">
-    <link rel="stylesheet" href="style.css">
     <title>Game of thrones</title>
+    
+    <link rel="stylesheet" href="./css/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="fonts/Game of Thrones.ttf">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main>
+    <main class="main-container">
 
     </main>
     <aside>
+
         <h3>GAME OF THRONES</h3>
+        
+        <div>
+            <img src="" id="heroes__Img" alt="">
+            <h4 id="heroes-name"></h4>
+            <img src="" id="house_coat_of_arms__img" alt="">
+        </div>
+
+        <p id="short_description"></p>
+
+        <div class="search__div">
+            <input type="search" class="search__input" placeholder="Search a character">
+            <button id="btn-search">
+                <i class="fa fa-search" aria-hidden="true"></i> 
+            </button>
+        </div>
     </aside>
+
+    <script src="./js/got.js"></script>
 </body>
 </html>
