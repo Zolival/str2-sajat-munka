@@ -1,36 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game of thrones</title>    
+    <title>Game of thrones</title>
     <link rel="stylesheet" href="./css/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
     <main class="main-container">
 
     </main>
     <aside>
 
-        <h3>GAME OF THRONES</h3>
+        <h3 class="head-text">GAME OF THRONES</h3>
 
         <div>
-            <img src="" class="heroes__Img" alt="">
-            <h4 class="heroes-name"></h4>
-            <img src="" class="house_coat_of_arms__img" alt="">
+            <div>
+                <img src="" class="hero__Img" alt="">
+                <div class="hero_name_and_arms">
+                    <h4 class="hero_name"></h4>
+                    <img src="" class="house_coat_of_arms__img" alt="">
+                </div>
+                <p class="short_description"></p>
+            </div>
         </div>
 
-        <p id="short_description"></p>
 
         <div class="search__div">
             <!-- <button>    
                 <i class="fa fa-chevron-right chevron"
                 aria-hidden="true"></i>
             </button> -->
-            <button class="search__btn">
-                <i class="fa fa-search" aria-hidden="true"></i> 
+            <button class="search__btn" onclick="getInputValue()">
+                <i class="fa fa-search" aria-hidden="true"></i>
             </button>
             <input type="search" class="search__input" placeholder="Search a character">
         </div>
@@ -38,4 +44,5 @@
 
     <script src="./js/got.js"></script>
 </body>
+
 </html>

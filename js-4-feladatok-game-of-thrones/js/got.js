@@ -1,5 +1,7 @@
 // 'use strict';
 
+let shortedDataContainer = undefined;
+
 const getHeroes = async (url = './json/got.json') => {
     try {
         const response = await fetch(url);
@@ -8,26 +10,38 @@ const getHeroes = async (url = './json/got.json') => {
         const shortedData = sortedByHeroesName(livingHeros)
         elementFactorys(shortedData);
         addEvents();
-        // searchEvents(shortedData);
-        return livingHeros
+        shortedDataContainer = shortedData;
+        return shortedData
     } catch (err) {
         console.error(`Error! Massage: ${err} ; sourse: ${url}`)
     }
-
 }
-const searchHeroes = (arr, name) => {
-    const image = document.querySelector('.heroes__Img');
-    const heroesName = document.querySelector('.heroes-name');
+const getInputValue = () => {
+    const inputField = document.querySelector('.search__input');
+    searchHeroes(shortedDataContainer, inputField.value);
+}
+
+const searchHeroes = (shortedDataContainer, name) => {
+    const image = document.querySelector('.hero__Img');
+    const heroesName = document.querySelector('.hero_name');
     const hauseArms = document.querySelector('.house_coat_of_arms__img');
     const description = document.querySelector('.short_description');
-    arr.forEach((item) => {
-        if (item.hasOwnProperty(name) == name) {
-            image.setAttribute('src', `./${item.portrait}`);
-            heroesName.textContent = item.name;
-            hauseArms.setAttribute('src', `./${item.portrait}`);
-            description.textContent = item.bio;
-        }
-    })
+    const lowerCaseName = name.toLowerCase();
+
+    if (shortedDataContainer) {
+        shortedDataContainer.forEach((item) => {
+            if (item.name.toLowerCase() == lowerCaseName) {
+                image.setAttribute('src', `./${item.picture}`);
+                heroesName.textContent = item.name;
+                description.textContent = item.bio;
+                if (item.portrait) {
+                    hauseArms.setAttribute('src', `./${item.portrait}`);
+                }
+            }
+        })
+    } else {
+        console.error(`dont have data! `);
+    }
 }
 
 const sortedByHeroesName = (arr = [{}]) => {
@@ -54,9 +68,16 @@ const elementFactorys = (arr = [{}]) => {
     const main = document.querySelector('.main-container');
 
     arr.forEach(item => {
-        const img = elFactory('img', { src: `.\/${item.portrait}`, class: 'images' });
-        const p = elFactory('p', { class: 'heroes_names' }, item.name);
-        const div = elFactory('div', { class: 'divs' }, img, p);
+        const img = elFactory('img', {
+            src: `.\/${item.portrait}`,
+            class: 'images'
+        });
+        const p = elFactory('p', {
+            class: 'heroes_names'
+        }, item.name);
+        const div = elFactory('div', {
+            class: 'divs'
+        }, img, p);
         main.appendChild(div);
     });
 }
@@ -78,25 +99,16 @@ const elFactory = (type, attributes, ...children) => {
     return el;
 }
 
-// kialakítás alatt:
-const addClickEvents = (e) => {
 
-    console.log('event activate', e.target);
-    console.log(e.target.getAttribute('src'));
-    console.log('event activate', e.target.getAttribute('heroes_names'));
+const addClickEvents = (e) => {
+    const heroesName = e.target.parentNode.children[1].textContent;
+    searchHeroes(shortedDataContainer, heroesName);
 }
 
 const addEvents = () => {
-    document.querySelectorAll('.heroes_names')
+    document.querySelectorAll('.divs')
         .forEach((item) => item.addEventListener(`click`, addClickEvents));
 };
 
 
-/*
-const searchEvents = () => {
-    
-}
-const clickEvent = () => (item, div)
-*/
-console.log('heroes() = ', getHeroes());
-console.log('code end');
+getHeroes();
