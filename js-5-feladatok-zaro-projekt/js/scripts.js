@@ -1,5 +1,7 @@
 "use strict";
 
+let lang = 'en';
+
 const headerLanguage = {
     en: ['id', 'name', 'email', 'address', "function"],
     hu: ['azonosítója', 'neve', 'email címe', 'címe', "funkció"]
@@ -10,12 +12,24 @@ const btnLanguage = {
     hu: ["nyelv választó", 'szerkesztés', 'törlés', 'mentés', 'visszavonás']
 }
 
-const getServer = async (url) => {
-    const fetchOptions = {
+const fetchOptions = {
+    get: {
         method: "GET",
         mode: "cors",
         cache: "no-cache",
-      };
+    },
+    set: {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        // body: JSON.stringify(data),
+    }
+}
+
+const getServer = async (url, fetchOptions) => {
     try {
         const response = await fetch(url, fetchOptions);
         const dataArr = await response.json();
@@ -45,34 +59,36 @@ const elFactory = (type, attributes, ...children) => {
     return el;
 }
 
-const languageSelectorCreator = (lang = "en") => {
-    const label = elFactory("label", {class: "language_label language_selector", for: "language-selector"}, `${btnLanguage[lang][0]}: `);
-    const select = elFactory("select", {class: "form-control language_selector", id: "language-selector"});
+const languageSelectorCreator = () => {
+    const label = elFactory("label", {class: "language_label language_selector", for: "language_selectorId"}, `${btnLanguage[lang][0]}: `);
+    const select = elFactory("select", {class: "form-control language_selector", id: "language_selectorId"});
 
     Object.keys(btnLanguage)
-    .forEach( (item) => {
-        return select.appendChild( elFactory("option", {class: "form-floating language_selector", id: "language-selector", value: `${item}`}, `${item}`) );
-    });
+    .forEach( 
+        (item) => select.appendChild( elFactory("option", { value: `${item}`}, `${item}`) )
+        )
+
     
     const div = elFactory("div", {class: "form-group col-4 d-flex mt-3  language_container"}, label, select);
-    document.querySelector('.language-selector').appendChild(div);
+    document.querySelectorAll('.language-selector').forEach((item) => item.appendChild(div));
 }
- 
-const tableGenerator = (dataArr, lang = "en") => {
-    languageSelectorCreator()
+
+
+const tableGenerator = (dataArr, lang) => {
+    languageSelectorCreator();
     const table = document.querySelector("#users-table");
     
     const thead = elFactory("thead");
     table.appendChild(thead);
 
-    headerCreator(dataArr, lang);
+    headerCreator(lang);
 
     const tbody = elFactory("tbody");
     table.appendChild(tbody);    
-    listCreator(dataArr, lang);
+    listCreator(dataArr);
 }
 
-const headerCreator = (dataArr, lang = "en") => {
+const headerCreator = () => {
     const thead = document.querySelector("thead");
     const row = document.createElement("tr");
     
@@ -81,17 +97,15 @@ const headerCreator = (dataArr, lang = "en") => {
     thead.appendChild(row);
 }
 
-const listCreator = (dataArr, lang = "en") => {
+const listCreator = (dataArr, ) => {
     const tbody = document.querySelector("tbody");
 
    dataArr.reverse().forEach((item) => {
         const row = elFactory("tr", {readonly: "true"});
         let rowId = null;
         for (let key in item) {
-            // console.log(key);
-            // row.innerHTML += `<td>${item[key]}</td>`
+           
             if(key == "id"){
-                // console.log("row", item[key])
                 rowId = item[key]
                 row.setAttribute("id", rowId)
             }
@@ -109,22 +123,14 @@ const listCreator = (dataArr, lang = "en") => {
 }
 
 const btnGroupCreator = (rowId, lang = "hu") => {
-    const editBtn = elFactory( "button", {class: `btn btn-info`, onclick: "rowEditing(this)"}, `${btnLanguage[lang][1]}`);
-    const deletBtn = elFactory( "button", {class: "btn btn-danger", onclick: "deleteRow(this)"}, `${btnLanguage[lang][2]}`);
+    const editBtn = elFactory( "button", {class: `btn btn-info`, onclick: "rowEditingBtn(this)"}, `${btnLanguage[lang][1]}`);
+    const deletBtn = elFactory( "button", {class: "btn btn-danger", onclick: "deleteBtn(this)"}, `${btnLanguage[lang][2]}`);
     const btnGroup = elFactory("div", {class: "btn-group"}, editBtn, deletBtn);
     return btnGroup
 }
 
-// document.querySelector("#users-table").addEventListener('click', buttons);
 
-// const buttons = () => console.log("siker!");
-
-
-const deleteRow = (event) => {
-    event.closest("tr").remove();
-}
-
-const rowEditing = (event) => {
+const rowEditingBtn = (event) => {
     const tr = event.parentElement.parentElement;
     const exceptionId = tr.getAttribute('id');
     anyRowCloser(exceptionId, 'false');
@@ -132,25 +138,27 @@ const rowEditing = (event) => {
     if(tr.getAttribute('readonly') === 'true'){
         const cells = tr.children
         
-        for(let i = 1; i<4; i++){
+        for(let i = 1; i < 4; i++){
             const value = cells[i].getAttribute('value');
+            const name = cells[i].getAttribute('name');
             cells[i].textContent = ''
-            cells[i].appendChild( elFactory('input', {class: "form-control", value: `${value}`}, `${value}`));
+            cells[i].appendChild( elFactory('input', {class: "form-control", name: `${name}`, value: `${value}`}, `${value}`));
         }
         const cellAttributes = cells[4].getAttribute('value');
-        // button settings:
-        cells[4].children[0].removeAttribute('onclick')
-        cells[4].children[0].setAttribute('onclick', "saveNewData(this)")
-        cells[4].children[0].textContent = 'save'
-        // console.log( cells[4].children[0] );
-
-        cells[4].children[1].removeAttribute('onclick')
-        cells[4].children[1].setAttribute('onclick', "cancelBtn(this)")
-        cells[4].children[1].textContent = 'cancel'
-        // console.log( cells[4].children[1] );
+        rowEditingBtnCreator(cells)
     }else{
         console.log('hibaüzenet helye: "Először be kell fejezned az aktuális szerkesztést" ')
     }
+}
+
+const rowEditingBtnCreator = (cells, ) => {
+    cells[4].children[0].removeAttribute('onclick')
+    cells[4].children[0].setAttribute('onclick', "saveBtn(this)")
+    cells[4].children[0].textContent = `${btnLanguage[lang][3]}`
+    
+    cells[4].children[1].removeAttribute('onclick')
+    cells[4].children[1].setAttribute('onclick', "cancelBtn(this)")
+    cells[4].children[1].textContent = `${btnLanguage[lang][4]}`
 }
 
 const anyRowCloser = (exceptionId, condition = 'false') => {
@@ -162,25 +170,82 @@ const anyRowCloser = (exceptionId, condition = 'false') => {
     })
 }
 
-const saveNewData = (event) => {
+const deleteBtn = (event) => {
+    const tr = event.parentElement.parentElement;
+    const exceptionId = tr.getAttribute('id');
+
+   
+        const cells = tr.children;
+        let valuesArr = [cells[0].getAttribute('value')];
+
+        for (let i = 1; i < 4; i++) {
+            const textValue = cells[i].getAttribute('value'); 
+            valuesArr.push(textValue);
+        }
+        console.log('array send delete to server:', valuesArr);
+
+    event.closest("tr").remove();
+}
+
+const saveBtn = (event) => {
+    const tr = event.parentElement.parentElement;
+    const exceptionId = tr.getAttribute('id');
+
+    if (tr.getAttribute('readonly') === 'true') {
+        const cells = tr.children;
+        let valuesArr = [cells[0].getAttribute('value')];
+
+        for (let i = 1; i < 4; i++) {
+            const textValue = cells[i].children[0].value;
+            valuesArr.push(textValue);
+            cells[i].children[0].remove();
+            cells[i].textContent = textValue;
+            cells[i].removeAttribute('value');
+            cells[i].setAttribute('value', textValue);
+        }
+        editDeleteBtnCreator(cells);
+        console.log('array send to server:', valuesArr);
+    }
+    anyRowCloser(exceptionId, 'true');
+}
+
+const editDeleteBtnCreator = (cells, ) => {
+    cells[4].children[0].removeAttribute('onclick');
+    cells[4].children[0].setAttribute('onclick', "rowEditingBtn(this)");
+    cells[4].children[0].textContent = `${btnLanguage[lang][1]}`;
+    
+    cells[4].children[1].removeAttribute('onclick')
+    cells[4].children[1].setAttribute('onclick', "deleteBtn(this)")
+    cells[4].children[1].textContent = `${btnLanguage[lang][2]}`
+}
+
+const cancelBtn = (event) => {
     const tr = event.parentElement.parentElement;
     const exceptionId = tr.getAttribute('id');
 
     if(tr.getAttribute('readonly') === 'true'){
         const cells = tr.children
         
-        for(let i = 1; i<4; i++){
-            cells[i].removeAttribute('value')
-            // console.log(cells[i].getAttribute('value') );
-            console.log(cells[i].textContent ) // .textContent .innerText .nodeValue .value .innerHTML
-            // cells[i].appendChild( elFactory('input', {class: "form-control", value: `${value}`}));
+        for(let i = 1; i < 4; i++){
+             const originalData = cells[i].getAttribute('value');
+            console.log(cells[i].getAttribute('value'));
+            const textValue = cells[i].getAttribute('value') ;
+            cells[i].children[0].remove();
+            cells[i].textContent = textValue;
+            cells[i].removeAttribute('value');
+            cells[i].setAttribute('value', textValue);
         }
-    }
-    // anyRowCloser(exceptionId, 'true');
+        editDeleteBtnCreator(cells)
+        anyRowCloser(exceptionId, 'true');
 }
-const cancelBtn = (event) => {
-
 }
 
-getServer("http://localhost:3000/users");
+
+getServer("http://localhost:3000/users", fetchOptions.get);
 console.log("lefutott a kod!"); 
+
+
+// let eventL = document.querySelector("#language_selector")
+// .addEventListener('blur', buttons());
+console.log( document.querySelector("#language_selectorId") );
+const buttons = () => console.log("siker!");

@@ -551,17 +551,12 @@
       "name": "Tana",
       "email": "tplows2p@scientificamerican.com",
       "address": "29432 Shasta Center"
-    },{
-        "id": 99,
-        "name": "Tanac",
-        "email": "tplowfds2p@scientificamerican.com",
-        "address": "29434 Shasta Central"
-      },
+    },
     {
-      "id": 100,
-      "name": "Neoma",
-      "email": "xnnstoneley2q@newsvine.com",
-      "address": "3 Melody Way"
+      "id": 99,
+      "name": "Tanac",
+      "email": "tplowfds2p@scientificamerican.com",
+      "address": "29434 Shasta Central"
     }
   ]
 }
