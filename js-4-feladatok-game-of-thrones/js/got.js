@@ -32,14 +32,18 @@ const searchHeroes = (shortedDataContainer, name) => {
         shortedDataContainer.forEach((item) => {
             if (item.name.toLowerCase() == lowerCaseName) {
                 image.setAttribute('src', `./${item.picture}`);
+                console.log(item.name)
                 heroesName.textContent = item.name;
                 description.textContent = item.bio;
-                if (item.portrait) {
-                    hauseArms.setAttribute('src', `./${item.portrait}`);
+                console.log(`./assets/houses/${item.house}.png`);
+                console.log(typeof item.house);
+                if (item.house != undefined) {
+                    hauseArms.setAttribute('src', `./assets/houses/${item.house}.png`);
                 }
             }
         })
     } else {
+        description.textContent = `Heroes don't have data! Try again ... `
         console.error(`dont have data! `);
     }
 }
