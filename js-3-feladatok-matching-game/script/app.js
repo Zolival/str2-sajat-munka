@@ -9,8 +9,8 @@ const playPhotosArr = [
     './img/pinkie-pie-twilight-sparkle-pony-rarity-rainbow-dash-pie-0c4a23e67afe3bb4b9666c223f35a1ce.png',
     './img/pinkie-pie-rainbow-dash-twilight-sparkle-rarity-pony-unicorn-birthday-3d0abeed62ae289b39786596c9b9a93b.png',
     './img/pony-pinkie-pie-twilight-sparkle-applejack-bonbon-my-little-pony-1bb5e348f9fb07e0a5d1f9ff4cab316f.png',
-    */
     './img/rarity-twilight-sparkle-my-little-pony-unicorn-unicorn-face-1521868bc32ecae1652518a470dbbf05.png',
+    */
     `./img/rainbow-dash-my-little-pony-twilight-sparkle-deviantart-dash-48cdab4eae42f0afd0cac08f660daa4f.png`,
     './img/rainbow-dash-twilight-sparkle-my-little-pony-rainbow-dash-cliparts-88974a3df3c9e6d82040cefe66f5de43.png',
     './img/rarity-pinkie-pie-rainbow-dash-spike-twilight-sparkle-my-little-pony-d83e1e713a7f4627626701742b97b5ec.png',
