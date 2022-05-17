@@ -2,7 +2,7 @@
 /*
  */
 const playPhotosArr = [
-    './img/aaeeeab34593fe55b6413887aedcea5d.png',
+    //'./img/aaeeeab34593fe55b6413887aedcea5d.png',
     './img/applejack-rarity-twilight-sparkle-pinkie-pie-rainbow-dash-jack-2a6407c3313a80ed4d318df0350294ab.png',
     './img/fluttershy-applejack-pinkie-pie-twilight-sparkle-rainbow-dash-my-little-pony-fe9bf0dd635e0b665747324cfb01ab65.png',
     './img/fluttershy-rainbow-dash-pinkie-pie-twilight-sparkle-princess-luna-my-little-pony-c9f8cd083a68f225ca85a42ead6a3064.png',
