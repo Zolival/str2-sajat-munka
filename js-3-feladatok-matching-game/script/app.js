@@ -1,5 +1,6 @@
 'use strict';
 /*
+ */
 const playPhotosArr = [
     './img/aaeeeab34593fe55b6413887aedcea5d.png',
     './img/applejack-rarity-twilight-sparkle-pinkie-pie-rainbow-dash-jack-2a6407c3313a80ed4d318df0350294ab.png',
@@ -16,13 +17,12 @@ const playPhotosArr = [
     './img/rarity-twilight-sparkle-my-little-pony-unicorn-unicorn-face-1521868bc32ecae1652518a470dbbf05.png',
     `./img/twilight-sparkle-pony-pinkie-pie-applejack-princess-celestia-twilight-fcda48c70f7a8f7cab490ee1031025b9.png`,
 ];
-*/
 
 // https://www.pngegg.com/en/png-zzlec/download
 
-
+/*
 const playPhotosArr = [
-   /* './img/newImg/pngegg (1).png',
+    './img/newImg/pngegg (1).png',
     './img/newImg/pngegg (2).png',
     './img/newImg/pngegg (3).png',
     './img/newImg/pngegg (4).png',
@@ -32,7 +32,6 @@ const playPhotosArr = [
     './img/newImg/pngegg (8).png',
     './img/newImg/pngegg (9).png',
     './img/newImg/pngegg (10).png',
-    */
     './img/newImg/pngegg (11).png',
     './img/newImg/pngegg (12).png',
     './img/newImg/pngegg (13).png',
@@ -44,6 +43,7 @@ const playPhotosArr = [
     './img/newImg/pngegg (19).png',
     './img/newImg/pngegg (20).png'
 ];
+*/
 
 let playRound = 0;
 let openedCards = [];
@@ -54,7 +54,9 @@ let lastParentid;
 
 // @description game timer
 const timer = document.querySelector("#clock");
-let second = 0, minute = 0, hour = 0;
+let second = 0,
+    minute = 0,
+    hour = 0;
 // ------------
 
 const chackedGameFinish = () => {
@@ -78,7 +80,7 @@ const cardOpen = () => {
                     document.querySelectorAll(`.${val.replaceAll(' ', '.')}`)[i].classList.add(`pair`);
                     document.querySelectorAll(`.${val.replaceAll(`flip-card-inner`, `image`)
                     .replaceAll(` watched`, ``).replaceAll(' ', '.')}`)[i]
-                    .classList.add(`pulsePair`);
+                        .classList.add(`pulsePair`);
                 });
                 chackedGameFinish();
                 openedCards = [];
@@ -100,19 +102,19 @@ const playCecking = () => {
         startedPlay = true;
     }
 }
-const addClickEvents = (e) => {    
-        const evParentClass = e.target.parentElement.getAttribute('class');
-        const evParentId = e.target.parentElement.getAttribute('id');
-        if(lastParentid != evParentId){
-            if (evParentClass.indexOf(`flip-card-inner`) > -1 && openedCards.length < 2 ) {
-                let ele = e.target.parentElement.classList.add(`watched`);
-                openedCards.push(e.target.parentElement.getAttribute(`class`));
-                cardOpen();
-            } else {
-                console.error(e);
-            }
-            lastParentid = evParentId
+const addClickEvents = (e) => {
+    const evParentClass = e.target.parentElement.getAttribute('class');
+    const evParentId = e.target.parentElement.getAttribute('id');
+    if (lastParentid != evParentId) {
+        if (evParentClass.indexOf(`flip-card-inner`) > -1 && openedCards.length < 2) {
+            let ele = e.target.parentElement.classList.add(`watched`);
+            openedCards.push(e.target.parentElement.getAttribute(`class`));
+            cardOpen();
+        } else {
+            console.error(e);
         }
+        lastParentid = evParentId
+    }
 }
 
 
@@ -128,8 +130,8 @@ const shuffleDubleArr = (playIconsArr) => {
 
 const restartGame = () => {
     const element = document.querySelector(`#playGround__${playRound}`);
-        element.classList.add('hidden');
-        element.remove(`playGround`);
+    element.classList.add('hidden');
+    element.remove(`playGround`);
     second = 0;
     minute = 0;
     hour = 0;
@@ -139,13 +141,16 @@ const restartGame = () => {
     roundNum = 0;
     pairNum = 0;
     startGame();
-} 
+}
 
 
 const startGame = () => {
     playRound += 1
     document.querySelector('#playContainer')
-        .appendChild(elFactory('div', { class: 'playGround', id: `playGround__${playRound}` }));
+        .appendChild(elFactory('div', {
+            class: 'playGround',
+            id: `playGround__${playRound}`
+        }));
 
     buildGameCards();
     addEvents();
@@ -155,17 +160,33 @@ const buildGameCards = () => {
     const playGround = document.querySelector(`#playGround__${playRound}`);
     const suffledIcons = shuffleDubleArr(playPhotosArr);
     suffledIcons.forEach((icon, index) => {
-        if(icon != ''){
-        let clName = icon.replaceAll('.', '').replaceAll('/', '').replaceAll('(', '').replaceAll(')', '').replaceAll(' ', '');
-        let el = elFactory('div', { class: `flip-card flipcard-div`, id: `flip-card_${index}` },
-            elFactory('div', { class: `flip-card-inner flip-card-innerId_${clName}`, id: `flip-card-inner_${index}` },
-                elFactory('div', { class: `flip-card-front flip-card-frontId_${clName}`, id: `flip-card-front_${index}` }),
-                elFactory('div', { class: `flip-card-back flip-card-backId_${clName}`, id: `flip-card-back_${index}` },
-                    elFactory('img', { src: `${icon}`, alt: "card image", class: `image imageId_${clName}` })
+        if (icon != '') {
+            let clName = icon.replaceAll('.', '').replaceAll('/', '').replaceAll('(', '').replaceAll(')', '').replaceAll(' ', '');
+            let el = elFactory('div', {
+                    class: `flip-card flipcard-div`,
+                    id: `flip-card_${index}`
+                },
+                elFactory('div', {
+                        class: `flip-card-inner flip-card-innerId_${clName}`,
+                        id: `flip-card-inner_${index}`
+                    },
+                    elFactory('div', {
+                        class: `flip-card-front flip-card-frontId_${clName}`,
+                        id: `flip-card-front_${index}`
+                    }),
+                    elFactory('div', {
+                            class: `flip-card-back flip-card-backId_${clName}`,
+                            id: `flip-card-back_${index}`
+                        },
+                        elFactory('img', {
+                            src: `${icon}`,
+                            alt: "card image",
+                            class: `image imageId_${clName}`
+                        })
+                    )
                 )
             )
-        )
-        playGround.appendChild(el);
+            playGround.appendChild(el);
         }
     })
 }
@@ -192,8 +213,8 @@ const elFactory = (type, attributes, ...children) => {
 // const timer = document.querySelector("#clock");
 // let second = 0, minute = 0, hour = 0;
 timer.innerHTML = minute.toString().padStart(2, '0') + ":" + second.toString().padStart(2, '0');
- 
-const startTimer = () =>{ 
+
+const startTimer = () => {
     setInterval(() => {
         timer.innerHTML = minute.toString().padStart(2, '0') + ":" + second.toString().padStart(2, '0');
         second++;
@@ -212,7 +233,7 @@ const startTimer = () =>{
 
 const addEvents = () => {
     document.querySelectorAll('.flip-card-inner')
-    .forEach((card) => card.addEventListener(`click`, addClickEvents));
+        .forEach((card) => card.addEventListener(`click`, addClickEvents));
 };
 
 startGame();
