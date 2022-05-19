@@ -1,6 +1,5 @@
 'use strict';
 const playPhotosArr = [
-    /*
     './img/aaeeeab34593fe55b6413887aedcea5d.png',
     './img/applejack-rarity-twilight-sparkle-pinkie-pie-rainbow-dash-jack-2a6407c3313a80ed4d318df0350294ab.png',
     './img/fluttershy-applejack-pinkie-pie-twilight-sparkle-rainbow-dash-my-little-pony-fe9bf0dd635e0b665747324cfb01ab65.png',
@@ -10,12 +9,13 @@ const playPhotosArr = [
     './img/pinkie-pie-rainbow-dash-twilight-sparkle-rarity-pony-unicorn-birthday-3d0abeed62ae289b39786596c9b9a93b.png',
     './img/pony-pinkie-pie-twilight-sparkle-applejack-bonbon-my-little-pony-1bb5e348f9fb07e0a5d1f9ff4cab316f.png',
     './img/rarity-twilight-sparkle-my-little-pony-unicorn-unicorn-face-1521868bc32ecae1652518a470dbbf05.png',
-    */
     `./img/rainbow-dash-my-little-pony-twilight-sparkle-deviantart-dash-48cdab4eae42f0afd0cac08f660daa4f.png`,
     './img/rainbow-dash-twilight-sparkle-my-little-pony-rainbow-dash-cliparts-88974a3df3c9e6d82040cefe66f5de43.png',
     './img/rarity-pinkie-pie-rainbow-dash-spike-twilight-sparkle-my-little-pony-d83e1e713a7f4627626701742b97b5ec.png',
     './img/rarity-pinkie-pie-twilight-sparkle-spike-applejack-rarity-cliparts-b23f6b451bd2a7e49604c2ed12ad6bc2.png',
     `./img/twilight-sparkle-pony-pinkie-pie-applejack-princess-celestia-twilight-fcda48c70f7a8f7cab490ee1031025b9.png`,
+    './img/pngegg.png',
+    './img/pngegg (1).png',
 ];
 
 // https://www.pngegg.com/en/png-zzlec/download
@@ -26,7 +26,8 @@ let openedCards = [];
 let roundNum = 0;
 let pairNum = 0;
 let startedPlay = false;
-let lastParentid;
+let lastParentId;
+let iconNumber;
 
 // @description game timer
 const timer = document.querySelector("#clock");
@@ -37,7 +38,7 @@ let second = 0,
 
 const checkedGameFinish = () => {
     pairNum += 1;
-    if (pairNum == playPhotosArr.length) {
+    if (pairNum == iconNumber) {
         setTimeout(() => {
             restartGame();
             clearInterval(setInterval);
@@ -60,13 +61,13 @@ const cardOpen = () => {
                 });
                 checkedGameFinish();
                 openedCards = [];
-                lastParentid = 0;
+                lastParentId = 0;
             }, 800)
         } else {
             setTimeout(() => {
                 openedCards.forEach((val) => document.querySelector(`.${val.replaceAll(' ', '.')}`).classList.remove(`watched`));
                 openedCards = [];
-                lastParentid = 0;
+                lastParentId = 0;
             }, 2750)
         }
     }
@@ -81,7 +82,7 @@ const playChecking = () => {
 const addClickEvents = (e) => {
     const evParentClass = e.target.parentElement.getAttribute('class');
     const evParentId = e.target.parentElement.getAttribute('id');
-    if (lastParentid != evParentId) {
+    if (lastParentId != evParentId) {
         if (evParentClass.indexOf(`flip-card-inner`) > -1 && openedCards.length < 2) {
             let ele = e.target.parentElement.classList.add(`watched`);
             openedCards.push(e.target.parentElement.getAttribute(`class`));
@@ -89,13 +90,13 @@ const addClickEvents = (e) => {
         } else {
             console.error(e);
         }
-        lastParentid = evParentId
+        lastParentId = evParentId
     }
 }
 
 
-const shuffleDoubleArr = (playIconsArr) => {
-    let array = playIconsArr.concat(playIconsArr);
+const shuffleArr = (inArray) => {
+    let array = inArray
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
@@ -106,22 +107,34 @@ const shuffleDoubleArr = (playIconsArr) => {
 
 const restartGame = () => {
     const element = document.querySelector(`#playGround__${playRound}`);
+    const fixedIconNumber = document.querySelector('#fixedIconNumber');
+
     element.classList.add('hidden');
     element.remove(`playGround`);
     second = 0;
     minute = 0;
     hour = 0;
     startedPlay = false;
-    lastParentid = 0;
+    lastParentId = 0;
     openedCards = [];
     roundNum = 0;
     pairNum = 0;
+    if (!fixedIconNumber.checked) {
+        iconNumber += 1;
+    }
     startGame();
 }
-
-
+const cardNumberIn = document.querySelector(`#cardNumber`);
+// '#roundOut'
 const startGame = () => {
+    if (playRound === 0) {
+        iconNumber = Number(cardNumberIn.value);
+        console.log('iconNumber = ', iconNumber)
+    }
+    console.log('iconNumber = ', iconNumber, 'cardNumberIn = ', Number(cardNumberIn.value))
     playRound += 1
+    const roundOut = document.querySelector(`#roundOut`);
+    roundOut.textContent = playRound;
     document.querySelector('#playContainer')
         .appendChild(elFactory('div', {
             class: 'playGround',
@@ -134,7 +147,11 @@ const startGame = () => {
 
 const buildGameCards = () => {
     const playGround = document.querySelector(`#playGround__${playRound}`);
-    const shuffledIcons = shuffleDoubleArr(playPhotosArr);
+
+    const shuffledAllIcons = shuffleArr(playPhotosArr);
+    const shuffledIconsCatted = shuffledAllIcons.slice(0, iconNumber);
+    const shuffledIconsPlayGround = shuffledIconsCatted.concat(shuffledIconsCatted);
+    const shuffledIcons = shuffleArr(shuffledIconsPlayGround);
     shuffledIcons.forEach((icon, index) => {
         if (icon != '') {
             let clName = icon.replaceAll('.', '').replaceAll('/', '').replaceAll('(', '').replaceAll(')', '').replaceAll(' ', '');
@@ -191,6 +208,7 @@ const elFactory = (type, attributes, ...children) => {
 timer.innerHTML = minute.toString().padStart(2, '0') + ":" + second.toString().padStart(2, '0');
 
 const startTimer = () => {
+    clearInterval(startTimer);
     setInterval(() => {
         timer.innerHTML = minute.toString().padStart(2, '0') + ":" + second.toString().padStart(2, '0');
         second++;
@@ -208,8 +226,23 @@ const startTimer = () => {
 
 
 const addEvents = () => {
+    const cardNumberElement = document.querySelector('#cardNumber');
+    cardNumberElement.addEventListener('click', function () {
+        console.log('cardNumberElement = ', cardNumberElement.value, 'fixedIconNumber = ', fixedIconNumber.checked)
+        if (fixedIconNumber.checked) {
+            iconNumber = Number(cardNumberIn.value);
+        } else {
+            iconNumber = Number(cardNumberIn.value) - 1
+        };
+        restartGame();
+    });
     document.querySelectorAll('.flip-card-inner')
         .forEach((card) => card.addEventListener(`click`, addClickEvents));
 };
 
 startGame();
+
+/*
+input select active value, and text content search: 
+console.log(this.options[this.selectedIndex].innerHTML, this.value)
+*/
