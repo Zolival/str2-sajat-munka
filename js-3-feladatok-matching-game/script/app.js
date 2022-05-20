@@ -20,6 +20,7 @@ const playPhotosArr = [
 
 // https://www.pngegg.com/en/png-zzlec/download
 
+let nIntervalId;
 
 let playRound = 0;
 let openedCards = [];
@@ -40,6 +41,8 @@ const checkedGameFinish = () => {
     pairNum += 1;
     if (pairNum == iconNumber) {
         setTimeout(() => {
+            clearInterval(nIntervalId);
+            nIntervalId = null;
             restartGame();
             clearInterval(setInterval);
         }, 5000);
@@ -209,18 +212,20 @@ timer.innerHTML = minute.toString().padStart(2, '0') + ":" + second.toString().p
 
 const startTimer = () => {
     clearInterval(startTimer);
-    setInterval(() => {
-        timer.innerHTML = minute.toString().padStart(2, '0') + ":" + second.toString().padStart(2, '0');
-        second++;
-        if (second == 60) {
-            minute++;
-            second = 0;
-        }
-        if (minute == 60) {
-            hour++;
-            minute = 0;
-        }
-    }, 1000);
+    if (!nIntervalId) {
+        nIntervalId = setInterval(() => {
+            timer.innerHTML = minute.toString().padStart(2, '0') + ":" + second.toString().padStart(2, '0');
+            second++;
+            if (second == 60) {
+                minute++;
+                second = 0;
+            }
+            if (minute == 60) {
+                hour++;
+                minute = 0;
+            }
+        }, 1000);
+    }
 }
 
 
