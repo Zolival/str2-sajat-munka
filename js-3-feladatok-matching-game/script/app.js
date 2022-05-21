@@ -40,8 +40,8 @@ let second = 0,
 const checkedGameFinish = () => {
     pairNum += 1;
     if (pairNum == iconNumber) {
+        clearInterval(nIntervalId);
         setTimeout(() => {
-            clearInterval(nIntervalId);
             nIntervalId = null;
             restartGame();
             clearInterval(setInterval);
@@ -55,6 +55,7 @@ const cardOpen = () => {
     if (openedCards.length >= 2) {
         roundNum += 1;
         if (openedCards[0] === openedCards[1]) {
+            checkedGameFinish();
             setTimeout(() => {
                 openedCards.forEach((val, i) => {
                     document.querySelectorAll(`.${val.replaceAll(' ', '.')}`)[i].classList.add(`pair`);
@@ -62,7 +63,6 @@ const cardOpen = () => {
                     .replaceAll(` watched`, ``).replaceAll(' ', '.')}`)[i]
                         .classList.add(`pulsePair`);
                 });
-                checkedGameFinish();
                 openedCards = [];
                 lastParentId = 0;
             }, 800)
@@ -108,7 +108,7 @@ const shuffleArr = (inArray) => {
 }
 
 
-const restartGame = () => {
+const restartGame = (eventMassage) => {
     const element = document.querySelector(`#playGround__${playRound}`);
     const fixedIconNumber = document.querySelector('#fixedIconNumber');
 
@@ -125,17 +125,20 @@ const restartGame = () => {
     if (!fixedIconNumber.checked) {
         iconNumber += 1;
     }
+    if (eventMassage === 'cardNumberChange') {
+        playRound = 0
+    }
     startGame();
 }
 const cardNumberIn = document.querySelector(`#cardNumber`);
-// '#roundOut'
+
 const startGame = () => {
     if (playRound === 0) {
         iconNumber = Number(cardNumberIn.value);
         console.log('iconNumber = ', iconNumber)
     }
-    console.log('iconNumber = ', iconNumber, 'cardNumberIn = ', Number(cardNumberIn.value))
-    playRound += 1
+    console.log('iconNumber = ', iconNumber, 'cardNumberIn = ', Number(cardNumberIn.value), 'playRound = ', playRound)
+    playRound += 1;
     const roundOut = document.querySelector(`#roundOut`);
     roundOut.textContent = playRound;
     document.querySelector('#playContainer')
@@ -239,7 +242,7 @@ const addEvents = () => {
         } else {
             iconNumber = Number(cardNumberIn.value) - 1
         };
-        restartGame();
+        restartGame('cardNumberChange');
     });
     document.querySelectorAll('.flip-card-inner')
         .forEach((card) => card.addEventListener(`click`, addClickEvents));

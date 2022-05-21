@@ -1,11 +1,15 @@
 body{
     background-color: rgb(131, 210, 227);
-    color: rgb(245, 245, 245);
+    color: rgb(199, 63, 174);
     text-align: center;
 }
 
+#cardNumber {
+  color: rgb(199, 63, 174);
+}
+
 #clock {
-  height: 1rem;
+  height: 2rem;
 }
 
 #playContainer {
